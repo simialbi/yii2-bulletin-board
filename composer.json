@@ -1,0 +1,63 @@
+{
+    "name": "simialbi/yii2-bulletin-board",
+    "type": "yii2-extension",
+    "description": "Bulletin board module for yii2",
+    "keywords": [
+        "yii2",
+        "forum",
+        "bulletin board"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "simialbi",
+            "email": "simi.albi@outlook.com"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/simialbi/yii2-bulletin-board",
+        "issues": "https://github.com/simialbi/yii2-bulletin-board/issues"
+    },
+    "minimum-stability": "beta",
+    "require": {
+        "php": ">=7.4",
+        "yiisoft/yii2": "^2.0.20",
+        "yiisoft/yii2-bootstrap5": "^2.0.0",
+        "kartik-v/yii2-grid": "^3.3.0",
+        "kartik-v/yii2-widget-select2": "^2.1.0",
+        "rmrevin/yii2-fontawesome": "^3.4.0",
+        "sandritsch91/yii2-widget-flatpickr": "^1.0.0",
+        "simialbi/yii2-simialbi-base": ">=0.13.0 <1.0 | ^1.0.0",
+        "simialbi/yii2-summernote": "^1.2.2",
+        "bower-asset/autosize": "^4.0.2",
+        "bower-asset/resumablejs": "^1.1.0"
+    },
+    "require-dev": {
+        "fortawesome/font-awesome": "^5.10.0",
+        "yiisoft/yii2-coding-standards": "~2.0"
+    },
+    "suggest": {
+        "simialbi/yii2-summernote": "Install this extension to use rich text fields in comment fields"
+    },
+    "autoload": {
+        "psr-4": {
+            "simialbi\\yii2\\bulletin\\": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    }
+}
