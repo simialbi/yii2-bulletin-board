@@ -1,6 +1,8 @@
 <?php
 
 use kartik\grid\GridView;
+use rmrevin\yii\fontawesome\FAS;
+use yii\helpers\Html;
 
 /** @var $this \yii\web\View */
 /** @var $searchModel \simialbi\yii2\bulletin\models\SearchCategory */
@@ -20,7 +22,64 @@ $this->params['breadcrumbs'] = [
         'pjax' => true,
         'export' => false,
         'bordered' => false,
-        'panel' => [],
+        'panel' => [
+            'heading' => $this->title,
+            'headingOptions' => [
+                'class' => [
+                    'card-header',
+                    'd-flex',
+                    'align-items-center',
+                    'justify-content-between',
+                    'bg-white'
+                ]
+            ],
+            'titleOptions' => [
+                'class' => ['card-title', 'm-0']
+            ],
+            'summaryOptions' => [
+                'class' => []
+            ],
+            'beforeOptions' => [
+                'class' => [
+                    'card-body',
+                    'py-2',
+                    'border-bottom',
+                    'd-flex',
+                    'justify-content-between',
+                    'align-items-center'
+                ]
+            ],
+            'footerOptions' => [
+                'class' => ['card-footer', 'bg-white']
+            ],
+            'options' => [
+                'class' => ['card']
+            ]
+        ],
+        'panelTemplate' => '
+            {panelHeading}
+            {panelBefore}
+            {items}
+            {panelFooter}
+        ',
+        'panelHeadingTemplate' => '
+            {title}
+            {toolbar}
+        ',
+        'panelFooterTemplate' => '{pager}{footer}',
+        'panelBeforeTemplate' => '{pager}{summary}',
+        'panelAfterTemplate' => '',
+        'containerOptions' => [],
+        'toolbar' => [
+            [
+                'content' => Html::a(FAS::i('plus'), ['create'], [
+                    'class' => ['btn', 'btn-primary'],
+                    'data' => [
+                        'pjax' => '0'
+                    ]
+                ])
+            ]
+        ],
         'columns' => [
             [
                 'class' => '\kartik\grid\SerialColumn',

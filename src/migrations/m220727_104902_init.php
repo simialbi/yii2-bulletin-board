@@ -89,9 +89,9 @@ class m220727_104902_init extends Migration
         );
         $this->addForeignKey(
             '{{%bulletin__post_attachment_ibfk_1}}',
-            '{{%bulletion__post_attachment}}',
+            '{{%bulletin__post_attachment}}',
             'post_id',
-            '{{%bulletin_post}}',
+            '{{%bulletin__post}}',
             'id',
             'CASCADE',
             'CASCADE'
@@ -201,7 +201,7 @@ class m220727_104902_init extends Migration
     {
 
         $this->dropForeignKey('{{%bulletin__category_user_ibfk_1}}', '{{%bulletin__category_user}}');
-        $this->dropForeignKey('{{%bulletin__post_attachment_ibfk_1}}', '{{%bulletion__post_attachment}}');
+        $this->dropForeignKey('{{%bulletin__post_attachment_ibfk_1}}', '{{%bulletin__post_attachment}}');
         $this->dropForeignKey('{{%bulletin__post_ibfk_1}}', '{{%bulletin__post}}');
         $this->dropForeignKey('{{%bulletin__topic_ibfk_1}}', '{{%bulletin__topic}}');
 

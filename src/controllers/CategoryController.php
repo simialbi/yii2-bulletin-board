@@ -6,6 +6,7 @@
 
 namespace simialbi\yii2\bulletin\controllers;
 
+use simialbi\yii2\bulletin\models\Category;
 use simialbi\yii2\bulletin\models\SearchCategory;
 use Yii;
 use yii\web\Controller;
@@ -23,7 +24,7 @@ class CategoryController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['bulletinAdministrator']
+//                        'roles' => ['bulletinAdministrator']
                     ]
                 ]
             ]
@@ -43,6 +44,24 @@ class CategoryController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider
+        ]);
+    }
+
+    /**
+     * Create a new category
+     *
+     * @return string|\yii\web\Response
+     */
+    public function actionCreate()
+    {
+        $model = new Category();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('create', [
+            'model' => $model
         ]);
     }
 }
