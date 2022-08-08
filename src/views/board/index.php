@@ -1,20 +1,22 @@
 <?php
 
 use kartik\grid\GridView;
+use kartik\select2\Select2;
 use rmrevin\yii\fontawesome\FAS;
 use yii\helpers\Html;
 
 /** @var $this \yii\web\View */
-/** @var $searchModel \simialbi\yii2\bulletin\models\SearchCategory */
+/** @var $searchModel \simialbi\yii2\bulletin\models\SearchBoard */
 /** @var $dataProvider \yii\data\ActiveDataProvider */
+/** @var $users array */
 
-$this->title = Yii::t('simialbi/bulletin', 'Categories');
+$this->title = Yii::t('simialbi/bulletin', 'Boards');
 $this->params['breadcrumbs'] = [
     $this->title
 ];
 
 ?>
-<div class="sa-bulletin-category-index">
+<div class="sa-bulletin-board-index">
     <?= GridView::widget([
         'bsVersion' => 5,
         'dataProvider' => $dataProvider,
@@ -87,6 +89,18 @@ $this->params['breadcrumbs'] = [
             ],
             [
                 'class' => '\kartik\grid\DataColumn',
+                'attribute' => 'icon',
+                'value' => function ($model) {
+                    /** @var $model \simialbi\yii2\bulletin\models\Board */
+                    return FAS::i($model->icon);
+                },
+                'format' => 'raw',
+                'hAlign' => GridView::ALIGN_CENTER,
+                'vAlign' => GridView::ALIGN_MIDDLE,
+                'width' => '60px'
+            ],
+            [
+                'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'title',
                 'vAlign' => GridView::ALIGN_MIDDLE
             ],
@@ -99,6 +113,17 @@ $this->params['breadcrumbs'] = [
             [
                 'class' => '\kartik\grid\DataColumn',
                 'attribute' => 'created_by',
+                'filter' => $users,
+                'filterType' => GridView::FILTER_SELECT2,
+                'filterWidgetOptions' => [
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'options' => [
+                        'placeholder' => ''
+                    ],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ],
                 'value' => 'author.fullname',
                 'vAlign' => GridView::ALIGN_MIDDLE
             ],

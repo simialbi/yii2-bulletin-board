@@ -18,8 +18,8 @@ class m220727_104902_init extends Migration
      */
     public function safeUp(): void
     {
-        $this->createTable('{{%bulletin__category}}', [
-            'id' => $this->primaryKey()->unsigned(),
+        $this->createTable('{{%bulletin__board}}', [
+            'id' =>  $this->primaryKey()->unsigned(),
             'title' => $this->string(255)->notNull(),
             'description' => $this->string(512)->null()->defaultValue(null),
             'icon' => $this->string(255)->null()->defaultValue(null),
@@ -30,9 +30,18 @@ class m220727_104902_init extends Migration
             'created_at' => $this->integer()->unsigned()->notNull(),
             'updated_at' => $this->integer()->unsigned()->notNull()
         ]);
+        $this->createTable('{{%bulletin__category}}', [
+            'id' => $this->primaryKey()->unsigned(),
+            'title' => $this->string(255)->notNull(),
+            'description' => $this->string(512)->null()->defaultValue(null),
+            'created_by' => $this->string(64)->null()->defaultValue(null),
+            'updated_by' => $this->string(64)->null()->defaultValue(null),
+            'created_at' => $this->integer()->unsigned()->notNull(),
+            'updated_at' => $this->integer()->unsigned()->notNull()
+        ]);
         $this->createTable('{{%bulletin__topic}}', [
             'id' => $this->primaryKey()->unsigned(),
-            'category_id' => $this->integer()->unsigned()->notNull(),
+            'board_id' => $this->integer()->unsigned()->notNull(),
             'title' => $this->string(255)->notNull(),
             'status' => $this->boolean()->notNull()->defaultValue(0),
             'created_by' => $this->string(64)->null()->defaultValue(null),
@@ -63,17 +72,22 @@ class m220727_104902_init extends Migration
             'created_at' => $this->integer()->unsigned()->notNull(),
             'updated_at' => $this->integer()->unsigned()->notNull()
         ]);
-        $this->createTable('{{%bulletin__category_user}}', [
-            'category_id' => $this->integer()->unsigned()->notNull(),
+        $this->createTable('{{%bulletin__board_user}}', [
+            'board_id' => $this->integer()->unsigned()->notNull(),
             'user_id' => $this->string(64)->notNull(),
-            'PRIMARY KEY ([[category_id]], [[user_id]])'
+            'PRIMARY KEY ([[board_id]], [[user_id]])'
+        ]);
+        $this->createTable('{{%bulletin__topic_category}}', [
+            'topic_id' => $this->integer()->unsigned()->notNull(),
+            'category_id' => $this->integer()->unsigned()->notNull(),
+            'PRIMARY KEY ([[topic_id]], [[category_id]])'
         ]);
 
         $this->addForeignKey(
             '{{%bulletin__topic_ibfk_1}}',
             '{{%bulletin__topic}}',
-            'category_id',
-            '{{%bulletin__category}}',
+            'board_id',
+            '{{%bulletin__board}}',
             'id',
             'CASCADE',
             'CASCADE'
@@ -97,8 +111,26 @@ class m220727_104902_init extends Migration
             'CASCADE'
         );
         $this->addForeignKey(
-            '{{%bulletin__category_user_ibfk_1}}',
-            '{{%bulletin__category_user}}',
+            '{{%bulletin__board_user_ibfk_1}}',
+            '{{%bulletin__board_user}}',
+            'board_id',
+            '{{%bulletin__board}}',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+        $this->addForeignKey(
+            '{{%bulletin__topic_category_ibfk_1}}',
+            '{{%bulletin__topic_category}}',
+            'topic_id',
+            '{{%bulletin__topic}}',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+        $this->addForeignKey(
+            '{{%bulletin__topic_category_ibfk_2}}',
+            '{{%bulletin__topic_category}}',
             'category_id',
             '{{%bulletin__category}}',
             'id',
@@ -108,6 +140,18 @@ class m220727_104902_init extends Migration
 
         $auth = Yii::$app->authManager;
         if ($auth) {
+            $createBoard = $auth->createPermission('bulletinCreateBoard');
+            $createBoard->description = 'Create a bulletin board';
+            $auth->add($createBoard);
+
+            $updateBoard = $auth->createPermission('bulletinUpdateBoard');
+            $updateBoard->description = 'Update a bulletin board';
+            $auth->add($updateBoard);
+
+            $deleteBoard = $auth->createPermission('bulletinDeleteBoard');
+            $deleteBoard->description = 'Delete a bulletin board and all of it\'s topic and posts';
+            $auth->add($deleteBoard);
+
             $createCategory = $auth->createPermission('bulletinCreateCategory');
             $createCategory->description = 'Create a bulletin board category';
             $auth->add($createCategory);
@@ -191,6 +235,9 @@ class m220727_104902_init extends Migration
             $auth->addChild($administrator, $createCategory);
             $auth->addChild($administrator, $updateCategory);
             $auth->addChild($administrator, $deleteCategory);
+            $auth->addChild($administrator, $createBoard);
+            $auth->addChild($administrator, $updateBoard);
+            $auth->addChild($administrator, $deleteBoard);
         }
     }
 
@@ -204,15 +251,21 @@ class m220727_104902_init extends Migration
         $this->dropForeignKey('{{%bulletin__post_attachment_ibfk_1}}', '{{%bulletin__post_attachment}}');
         $this->dropForeignKey('{{%bulletin__post_ibfk_1}}', '{{%bulletin__post}}');
         $this->dropForeignKey('{{%bulletin__topic_ibfk_1}}', '{{%bulletin__topic}}');
+        $this->dropForeignKey('{{%bulletin__topic_category_ibfk_1}}', '{{%bulletin__topic_category}}');
+        $this->dropForeignKey('{{%bulletin__topic_category_ibfk_2}}', '{{%bulletin__topic_category}}');
 
-        $this->dropTable('{{%bulletin__category_user}}');
+        $this->dropTable('{{%bulletin__board_user}}');
         $this->dropTable('{{%bulletin__post_attachment}}');
         $this->dropTable('{{%bulletin__post}}');
         $this->dropTable('{{%bulletin__topic}}');
         $this->dropTable('{{%bulletin__category}}');
+        $this->dropTable('{{%bulletin__board}}');
 
         $auth = Yii::$app->authManager;
         if ($auth) {
+            $createBoard = $auth->getPermission('bulletinCreateBoard');
+            $updateBoard = $auth->getPermission('bulletinUpdateBoard');
+            $deleteBoard = $auth->getPermission('bulletinDeleteBoard');
             $createCategory = $auth->getPermission('bulletinCreateCategory');
             $updateCategory = $auth->getPermission('bulletinUpdateCategory');
             $deleteCategory = $auth->getPermission('bulletinDeleteCategory');
@@ -225,11 +278,14 @@ class m220727_104902_init extends Migration
             $administrator = $auth->getRole('bulletinAdministrator');
             $moderator = $auth->getRole('bulletinModerator');
             $author = $auth->getRole('bulletinAuthor');
-            $rule = $auth->getRule('isAuthor');
+            $rule = $auth->getRule('bulletin_isAuthor');
             $updateOwnPost = $auth->getPermission('bulletinUpdateOwnPost');
             $deleteOwnPost = $auth->getPermission('bulletinDeleteOwnPost');
             $updateOwnTopic = $auth->getPermission('bulletinUpdateOwnTopic');
 
+            $auth->remove($createBoard);
+            $auth->remove($updateBoard);
+            $auth->remove($deleteBoard);
             $auth->remove($updateOwnPost);
             $auth->remove($deleteOwnPost);
             $auth->remove($updateOwnTopic);

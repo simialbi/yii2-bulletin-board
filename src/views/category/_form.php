@@ -11,26 +11,9 @@ use kartik\select2\Select2;
 <div class="row form-row g-3">
     <?= $form->field($model, 'title', [
         'options' => [
-            'class' => ['form-group', 'col-12', 'col-sm-6', 'col-lg-4']
+            'class' => ['form-group', 'col-12']
         ]
     ])->textInput(); ?>
-    <?= $form->field($model, 'icon', [
-        'options' => [
-            'class' => ['form-group', 'col-12', 'col-sm-6', 'col-lg-4']
-        ]
-    ])->widget(Select2::class, [
-        'data' => []
-    ]); ?>
-    <?= $form->field($model, 'status', [
-        'options' => [
-            'class' => ['form-group', 'col-12', 'col-sm-6', 'col-lg-2']
-        ]
-    ])->checkbox(); ?>
-    <?= $form->field($model, 'is_public', [
-        'options' => [
-            'class' => ['form-group', 'col-12', 'col-sm-6', 'col-lg-2']
-        ]
-    ])->checkbox(); ?>
     <?= $form->field($model, 'description', [
         'options' => [
             'class' => ['form-group', 'col-12']

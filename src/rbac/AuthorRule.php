@@ -16,7 +16,7 @@ class AuthorRule extends Rule
     /**
      * @inheritdoc
      */
-    public $name = 'isAuthor';
+    public $name = 'bulletin_isAuthor';
 
     /**
      * {@inheritDoc}

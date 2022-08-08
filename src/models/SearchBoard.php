@@ -9,7 +9,7 @@ namespace simialbi\yii2\bulletin\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-class SearchCategory extends Category
+class SearchBoard extends Board
 {
     /**
      * {@inheritDoc}
@@ -17,8 +17,9 @@ class SearchCategory extends Category
     public function rules(): array
     {
         return [
-            ['id', 'integer'],
-            [['title', 'description'], 'string']
+            [['id', 'created_by'], 'integer'],
+            [['title', 'description', 'icon'], 'string'],
+            [['status', 'is_public'], 'boolean']
         ];
     }
 
@@ -39,7 +40,7 @@ class SearchCategory extends Category
      */
     public function search(array $params): ActiveDataProvider
     {
-        $query = Category::find();
+        $query = Board::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,11 +58,15 @@ class SearchCategory extends Category
         }
 
         $query->andFilterWhere([
-            'id' => $this->id
+            'id' => $this->id,
+            'status' => $this->status,
+            'is_public' => $this->is_public,
+            'created_by' => $this->created_by
         ]);
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }
+
 }

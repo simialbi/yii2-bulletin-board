@@ -12,153 +12,185 @@ msgstr ""
 
 msgctxt "simialbi/bulletin"
 msgid "Categories"
-msgstr ""
+msgstr "Categories"
+
+msgctxt "simialbi/bulletin"
+msgid "Create category"
+msgstr "Create category"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created at"
-msgstr ""
+msgstr "Created at"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created by"
-msgstr ""
+msgstr "Created by"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Mime type"
-msgstr ""
+msgstr "Mime type"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Path"
-msgstr ""
+msgstr "Path"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Post"
-msgstr ""
+msgstr "Post"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Size"
-msgstr ""
+msgstr "Size"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Updated at"
-msgstr ""
+msgstr "Updated at"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Updated by"
-msgstr ""
+msgstr "Updated by"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Created at"
+msgstr "Created at"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Created by"
+msgstr "Created by"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Description"
+msgstr "Description"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Icon"
+msgstr "Icon"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Id"
+msgstr "Id"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Is active"
+msgstr "Is active"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Is public"
+msgstr "Is public"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Title"
+msgstr "Title"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Updated at"
+msgstr "Updated at"
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Updated by"
+msgstr "Updated by"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Created at"
-msgstr ""
+msgstr "Created at"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Created by"
-msgstr ""
+msgstr "Created by"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Description"
-msgstr ""
-
-msgctxt "simialbi/bulletin/model/category"
-msgid "Icon"
-msgstr ""
+msgstr "Description"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Id"
-msgstr ""
-
-msgctxt "simialbi/bulletin/model/category"
-msgid "Is public"
-msgstr ""
-
-msgctxt "simialbi/bulletin/model/category"
-msgid "Status"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Updated at"
-msgstr ""
+msgstr "Updated at"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Updated by"
-msgstr ""
+msgstr "Updated by"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Created at"
-msgstr ""
+msgstr "Created at"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Created by"
-msgstr ""
+msgstr "Created by"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Topic"
-msgstr ""
+msgstr "Topic"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated at"
-msgstr ""
+msgstr "Updated at"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated by"
-msgstr ""
+msgstr "Updated by"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Category"
-msgstr ""
+msgstr "Category"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Created at"
-msgstr ""
+msgstr "Created at"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Created by"
-msgstr ""
+msgstr "Created by"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Updated at"
-msgstr ""
+msgstr "Updated at"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Updated by"
-msgstr ""
+msgstr "Updated by"
 

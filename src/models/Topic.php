@@ -8,6 +8,7 @@ namespace simialbi\yii2\bulletin\models;
 
 use simialbi\yii2\models\UserInterface;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 
 /**
@@ -20,7 +21,8 @@ use yii\db\ActiveRecord;
  * @property int|string|\DateTimeInterface $created_at
  * @property int|string|\DateTimeInterface $updated_at
  *
- * @property-read Category $category
+ * @property-read Board $board
+ * @property-read Category[] $categories
  * @property-read Post[] $posts
  * @property-read UserInterface $author
  * @property-read UserInterface $updater
@@ -110,12 +112,23 @@ class Topic extends ActiveRecord
     }
 
     /**
-     * Get associated category
+     * Get associated board
      * @return \yii\db\ActiveQuery
      */
-    public function getCategory(): \yii\db\ActiveQuery
+    public function getBoard(): \yii\db\ActiveQuery
     {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        return $this->hasOne(Board::class, ['id' => 'board_id']);
+    }
+
+    /**
+     * Get associated categories
+     * @return \yii\db\ActiveQuery
+     * @throws InvalidConfigException
+     */
+    public function getCategories(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(Category::class, ['id' => 'category_id'])
+            ->viaTable('{{%bulletin__topic_category}}', ['topic_id' => 'id']);
     }
 
     /**

@@ -16,8 +16,8 @@ return [
     'translator' => 'Yii::t',
     'sort' => true,
     'overwrite' => true,
-    'removeUnused' => false,
-    'markUnused' => true,
+    'removeUnused' => true,
+    'markUnused' => false,
     'except' => [
         '.svn',
         '.git',

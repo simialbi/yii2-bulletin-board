@@ -14,6 +14,10 @@ msgctxt "simialbi/bulletin"
 msgid "Categories"
 msgstr ""
 
+msgctxt "simialbi/bulletin"
+msgid "Create category"
+msgstr ""
+
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created at"
 msgstr ""
@@ -54,6 +58,46 @@ msgctxt "simialbi/bulletin/model/attachment"
 msgid "Updated by"
 msgstr ""
 
+msgctxt "simialbi/bulletin/model/board"
+msgid "Created at"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Created by"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Description"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Icon"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Id"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Is active"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Is public"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Title"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Updated at"
+msgstr ""
+
+msgctxt "simialbi/bulletin/model/board"
+msgid "Updated by"
+msgstr ""
+
 msgctxt "simialbi/bulletin/model/category"
 msgid "Created at"
 msgstr ""
@@ -67,19 +111,7 @@ msgid "Description"
 msgstr ""
 
 msgctxt "simialbi/bulletin/model/category"
-msgid "Icon"
-msgstr ""
-
-msgctxt "simialbi/bulletin/model/category"
 msgid "Id"
-msgstr ""
-
-msgctxt "simialbi/bulletin/model/category"
-msgid "Is public"
-msgstr ""
-
-msgctxt "simialbi/bulletin/model/category"
-msgid "Status"
 msgstr ""
 
 msgctxt "simialbi/bulletin/model/category"

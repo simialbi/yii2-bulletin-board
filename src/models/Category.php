@@ -8,17 +8,13 @@ namespace simialbi\yii2\bulletin\models;
 
 use simialbi\yii2\models\UserInterface;
 use Yii;
-use yii\base\InvalidCallException;
+use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
-use yii\db\Query;
 
 /**
  * @property int $id
  * @property string $title
  * @property string|null $description
- * @property string|null $icon
- * @property bool $status
- * @property bool $is_public
  * @property int|string $created_by
  * @property int|string $updated_by
  * @property int|string|\DateTimeInterface $created_at
@@ -49,12 +45,9 @@ class Category extends ActiveRecord
     {
         return [
             ['id', 'integer'],
-            [['title', 'description', 'icon'], 'string'],
-            [['status', 'is_public'], 'boolean'],
+            [['title', 'description'], 'string'],
 
-            [['status', 'is_public'], 'default', 'value' => true],
-
-            [['title', 'status', 'is_public'], 'required']
+            [['title'], 'required']
         ];
     }
 
@@ -90,9 +83,6 @@ class Category extends ActiveRecord
             'id' => Yii::t('simialbi/bulletin/model/category', 'Id'),
             'title' => Yii::t('simialbi/bulletin/model/category', 'Title'),
             'description' => Yii::t('simialbi/bulletin/model/category', 'Description'),
-            'icon' => Yii::t('simialbi/bulletin/model/category', 'Icon'),
-            'status' => Yii::t('simialbi/bulletin/model/category', 'Status'),
-            'is_public' => Yii::t('simialbi/bulletin/model/category', 'Is public'),
             'created_by' => Yii::t('simialbi/bulletin/model/category', 'Created by'),
             'updated_by' => Yii::t('simialbi/bulletin/model/category', 'Updated by'),
             'created_at' => Yii::t('simialbi/bulletin/model/category', 'Created at'),
@@ -119,63 +109,14 @@ class Category extends ActiveRecord
     }
 
     /**
-     * Get users associated with this category
-     * @return UserInterface[]
-     */
-    public function getUsers(): array
-    {
-        if (!isset($this->_users)) {
-            $query = new Query();
-            $query->select('user_id')
-                ->from('{{%bulletin__category_user}}')
-                ->where(['category_id' => $this->id]);
-
-            if (!$query->count('user_id')) {
-                $this->_users = [];
-
-                return $this->_users;
-            }
-
-            /** @var UserInterface[] $users */
-            $this->_users = call_user_func([Yii::$app->user->identityClass, 'findIdentitiesByIds'], array_values($query->all()));
-        }
-
-        return $this->_users;
-    }
-
-    /**
-     * Set the users for this category.
-     * @param UserInterface[]|int[] $users The user ids or user instances to link.
-     * @return int Number of inserted records
-     * @throws \yii\db\Exception|InvalidCallException
-     */
-    public function setUsers(array $users): int
-    {
-        if ($this->isNewRecord) {
-            throw new InvalidCallException('Unable to link models: the models being linked cannot be newly created.');
-        }
-        $ids = [];
-        foreach ($users as $user) {
-            if ($user instanceof UserInterface) {
-                $ids[] = [$user->getId(), $this->id];
-            } elseif (is_int($user)) {
-                $ids[] = [$user, $this->id];
-            }
-        }
-
-        return self::getDb()
-            ->createCommand()
-            ->batchInsert('{{%bulletin__category_user}}', ['user_id', 'category_id'], $ids)
-            ->execute();
-    }
-
-    /**
      * Get associated topics
      * @return \yii\db\ActiveQuery
+     * @throws InvalidConfigException
      */
     public function getTopics(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(Topic::class, ['category_id' => 'id']);
+        return $this->hasMany(Topic::class, ['id' => 'topic_id'])
+            ->viaTable('{{%bulletin__topic_category}}', ['category_id' => 'id']);
     }
 
     /**
