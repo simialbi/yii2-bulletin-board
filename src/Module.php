@@ -21,7 +21,7 @@ class Module extends \simialbi\yii2\base\Module
     /**
      * @inheritdoc
      */
-    public $defaultRoute = '';
+    public $defaultRoute = 'bulletin';
 
     /**
      * {@inheritDoc}

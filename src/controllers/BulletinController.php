@@ -9,6 +9,7 @@ namespace simialbi\yii2\bulletin\controllers;
 use rmrevin\yii\fontawesome\FAS;
 use simialbi\yii2\bulletin\models\Board;
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
 use yii\web\Controller;
@@ -40,14 +41,51 @@ class BulletinController extends Controller
      * @param int|null $id
      *
      * @return string
+     *
+     * @throws InvalidConfigException
      */
     public function actionIndex(?int $id = null): string
+    {
+        $activeBoard = null;
+        $navigation = self::getBoardNavigation($id, $activeBoard);
+
+        $topicDataProvider = new ActiveDataProvider([
+            'query' => $activeBoard ? $activeBoard->getTopics() : new Query(),
+            'sort' => [
+                'defaultOrder' => [
+                    'created_at' => SORT_DESC
+                ]
+            ]
+        ]);
+
+        return $this->render('index', [
+            'navigation' => $navigation,
+            'board' => $activeBoard ?? null,
+            'dataProvider' => $topicDataProvider
+        ]);
+    }
+
+    /**
+     * Get board navigation
+     *
+     * @param int|null $id The active board id
+     * @param Board|null $activeBoard The active board instance
+     *
+     * @return array
+     *
+     * @throws \yii\base\InvalidConfigException
+     */
+    public static function getBoardNavigation(?int $id = null, ?Board &$activeBoard = null): array
     {
         $boards = Board::find()
             ->alias('b')
             ->leftJoin(['u' => '{{%bulletin__board_user}}'], '{{u}}.[[board_id]] = {{b}}.[[id]]')
-            ->where(['is_public' => true])
-            ->orWhere(['{{u}}.[[user_id]]' => Yii::$app->user->id])
+            ->where([
+                'or',
+                ['is_public' => true],
+                ['{{u}}.[[user_id]]' => Yii::$app->user->id]
+            ])
+            ->andWhere(['status' => true])
             ->orderBy(['title' => SORT_ASC])
             ->all();
 
@@ -72,19 +110,6 @@ class BulletinController extends Controller
             ];
         }
 
-        $topicDataProvider = new ActiveDataProvider([
-            'query' => (isset($activeBoard)) ? $activeBoard->getTopics() : new Query(),
-            'sort' => [
-                'defaultOrder' => [
-                    'created_at' => SORT_DESC
-                ]
-            ]
-        ]);
-
-        return $this->render('index', [
-            'navigation' => $navigation,
-            'board' => $activeBoard ?? null,
-            'dataProvider' => $topicDataProvider
-        ]);
+        return $navigation;
     }
 }

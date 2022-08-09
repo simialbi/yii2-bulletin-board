@@ -22,7 +22,6 @@ use yii\db\ActiveRecord;
  * @property int|string|\DateTimeInterface $updated_at
  *
  * @property-read Topic $topic
- * @property-read Category $category
  * @property-read Attachment[] $attachments
  * @property-read UserInterface $author
  * @property-read UserInterface $updater
@@ -119,16 +118,6 @@ class Post extends ActiveRecord
     public function getTopic(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Topic::class, ['id' => 'topic_id']);
-    }
-
-    /**
-     * Get associated topic via topic
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCategory(): \yii\db\ActiveQuery
-    {
-        return $this->hasOne(Category::class, ['id' => 'category_id'])
-            ->via('topic');
     }
 
     /**

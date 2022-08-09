@@ -2,8 +2,10 @@
 
 
 use rmrevin\yii\fontawesome\FAS;
+use simialbi\yii2\bulletin\models\Topic;
 use yii\helpers\Url;
 use yii\widgets\ListView;
+use yii\widgets\Pjax;
 
 $navClass = '\yii\widgets\Menu';
 $pagerClass = '\yii\widgets\LinkPager';
@@ -42,29 +44,46 @@ $this->params['breadcrumbs'] = [
             </div>
         </div>
         <div class="col-10 col-sm-8">
-            <?php if ($board): ?>
-                <div class="card">
-                    <div class="card-header d-flex justify-content-around align-items-center">
-                        <h4 class="card-title m-0"><?= $board->title; ?></h4>
-                        <a type="button" href="<?= Url::to(['topic/create', 'boardId' => $board->id]); ?>"
-                           class="btn btn-primary ml-auto ms-auto">
-                            <?= FAS::i('plus') ?>
-                        </a>
-                    </div>
-                    <div class="card-body">
+            <?php Pjax::begin([
+                'id' => 'bulletin-content-pjax'
+            ]); ?>
+                <?php if ($board): ?>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-around align-items-center">
+                            <h4 class="card-title m-0"><?= $board->title; ?></h4>
+                            <a type="button" href="<?= Url::to(['topic/create', 'boardId' => $board->id]); ?>"
+                               class="btn btn-primary ml-auto ms-auto" data-pjax="0">
+                                <?= FAS::i('plus') ?>
+                            </a>
+                        </div>
                         <?= ListView::widget([
-                            'dataProvider' => $dataProvider
+                            'dataProvider' => $dataProvider,
+                            'layout' => "<div class=\"card-body border-bottom py-2\">{summary}</div><div class=\"card-body p-0\"><div class=\"list-group list-group-flush\">{items}</div></div><div class=\"card-footer\">{pager}</div>",
+                            'itemView' => '_topic-item',
+                            'pager' => [
+                                'class' => $pagerClass,
+                                'hideOnSinglePage' => false,
+                                'listOptions' => ['class' => ['pagination', 'mb-0']]
+                            ],
+                            'itemOptions' => function (Topic $model, int $index) use ($board) {
+                                $class = ['list-group-item', 'list-group-item-action'];
+                                if ($index % 2 === 0) {
+                                    $class[] = 'bg-light';
+                                }
+
+                                return [
+                                    'tag' => 'a',
+                                    'href' => Url::to(['topic/view', 'id' => $model->id, 'boardId' => $board->id]),
+                                    'class' => $class
+                                ];
+                            },
+                            'emptyTextOptions' => [
+                                'class' => ['card-body']
+                            ]
                         ]); ?>
                     </div>
-                    <?php if ($dataProvider->getCount() > 0): ?>
-                        <div class="card-footer">
-                            <?= $pagerClass::widget([
-                                'pagination' => $dataProvider->getPagination()
-                            ]); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+            <?php Pjax::end(); ?>
         </div>
     </div>
 </div>

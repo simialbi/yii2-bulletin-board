@@ -13,7 +13,6 @@ use yii\db\ActiveRecord;
 
 /**
  * @property int $id
- * @property int $category_id
  * @property string $title
  * @property bool $status
  * @property int|string $created_by
@@ -21,7 +20,7 @@ use yii\db\ActiveRecord;
  * @property int|string|\DateTimeInterface $created_at
  * @property int|string|\DateTimeInterface $updated_at
  *
- * @property-read Board $board
+ * @property-read Board[] $boards
  * @property-read Category[] $categories
  * @property-read Post[] $posts
  * @property-read UserInterface $author
@@ -43,13 +42,13 @@ class Topic extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['id', 'category_id'], 'integer'],
+            [['id'], 'integer'],
             ['title', 'string'],
             ['status', 'boolean'],
 
             ['status', 'default', 'value' => false],
 
-            [['category_id', 'title', 'status'], 'required']
+            [['title', 'status'], 'required']
         ];
     }
 
@@ -83,7 +82,6 @@ class Topic extends ActiveRecord
     {
         return [
             'id' => Yii::t('simialbi/bulletin/model/topic', 'Id'),
-            'category_id' => Yii::t('simialbi/bulletin/model/topic', 'Category'),
             'title' => Yii::t('simialbi/bulletin/model/topic', 'Title'),
             'status' => Yii::t('simialbi/bulletin/model/topic', 'Status'),
             'created_by' => Yii::t('simialbi/bulletin/model/topic', 'Created by'),
@@ -114,10 +112,12 @@ class Topic extends ActiveRecord
     /**
      * Get associated board
      * @return \yii\db\ActiveQuery
+     * @throws InvalidConfigException
      */
-    public function getBoard(): \yii\db\ActiveQuery
+    public function getBoards(): \yii\db\ActiveQuery
     {
-        return $this->hasOne(Board::class, ['id' => 'board_id']);
+        return $this->hasMany(Board::class, ['id' => 'board_id'])
+            ->viaTable('{{%bulletin__topic_board}}', ['topic_id' => 'id']);
     }
 
     /**

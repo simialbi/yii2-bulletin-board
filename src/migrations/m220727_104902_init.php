@@ -41,7 +41,6 @@ class m220727_104902_init extends Migration
         ]);
         $this->createTable('{{%bulletin__topic}}', [
             'id' => $this->primaryKey()->unsigned(),
-            'board_id' => $this->integer()->unsigned()->notNull(),
             'title' => $this->string(255)->notNull(),
             'status' => $this->boolean()->notNull()->defaultValue(0),
             'created_by' => $this->string(64)->null()->defaultValue(null),
@@ -82,16 +81,12 @@ class m220727_104902_init extends Migration
             'category_id' => $this->integer()->unsigned()->notNull(),
             'PRIMARY KEY ([[topic_id]], [[category_id]])'
         ]);
+        $this->createTable('{{%bulletin__topic_board}}', [
+            'topic_id' => $this->integer()->unsigned()->notNull(),
+            'board_id' => $this->integer()->unsigned()->notNull(),
+            'PRIMARY KEY ([[topic_id]], [[board_id]])'
+        ]);
 
-        $this->addForeignKey(
-            '{{%bulletin__topic_ibfk_1}}',
-            '{{%bulletin__topic}}',
-            'board_id',
-            '{{%bulletin__board}}',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
         $this->addForeignKey(
             '{{%bulletin__post_ibfk_1}}',
             '{{%bulletin__post}}',
@@ -133,6 +128,24 @@ class m220727_104902_init extends Migration
             '{{%bulletin__topic_category}}',
             'category_id',
             '{{%bulletin__category}}',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+        $this->addForeignKey(
+            '{{%bulletin__topic_board_ibfk_1}}',
+            '{{%bulletin__topic_board}}',
+            'topic_id',
+            '{{%bulletin__topic}}',
+            'id',
+            'CASCADE',
+            'CASCADE'
+        );
+        $this->addForeignKey(
+            '{{%bulletin__topic_board_ibfk_2}}',
+            '{{%bulletin__topic_board}}',
+            'board_id',
+            '{{%bulletin__board}}',
             'id',
             'CASCADE',
             'CASCADE'
@@ -247,13 +260,16 @@ class m220727_104902_init extends Migration
     public function safeDown(): void
     {
 
-        $this->dropForeignKey('{{%bulletin__category_user_ibfk_1}}', '{{%bulletin__category_user}}');
+        $this->dropForeignKey('{{%bulletin__board_user_ibfk_1}}', '{{%bulletin__board_user}}');
         $this->dropForeignKey('{{%bulletin__post_attachment_ibfk_1}}', '{{%bulletin__post_attachment}}');
         $this->dropForeignKey('{{%bulletin__post_ibfk_1}}', '{{%bulletin__post}}');
-        $this->dropForeignKey('{{%bulletin__topic_ibfk_1}}', '{{%bulletin__topic}}');
         $this->dropForeignKey('{{%bulletin__topic_category_ibfk_1}}', '{{%bulletin__topic_category}}');
         $this->dropForeignKey('{{%bulletin__topic_category_ibfk_2}}', '{{%bulletin__topic_category}}');
+        $this->dropForeignKey('{{%bulletin__topic_board_ibfk_1}}', '{{%bulletin__topic_board}}');
+        $this->dropForeignKey('{{%bulletin__topic_board_ibfk_2}}', '{{%bulletin__topic_board}}');
 
+        $this->dropTable('{{%bulletin__topic_category}}');
+        $this->dropTable('{{%bulletin__topic_board}}');
         $this->dropTable('{{%bulletin__board_user}}');
         $this->dropTable('{{%bulletin__post_attachment}}');
         $this->dropTable('{{%bulletin__post}}');

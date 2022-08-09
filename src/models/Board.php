@@ -9,6 +9,7 @@ namespace simialbi\yii2\bulletin\models;
 use simialbi\yii2\models\UserInterface;
 use Yii;
 use yii\base\InvalidCallException;
+use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 use yii\db\Query;
 
@@ -121,10 +122,12 @@ class Board extends ActiveRecord
     /**
      * Get associated topics
      * @return \yii\db\ActiveQuery
+     * @throws InvalidConfigException
      */
     public function getTopics(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(Topic::class, ['board_id' => 'id']);
+        return $this->hasMany(Topic::class, ['id' => 'topic_id'])
+            ->viaTable('{{%bulletin__topic_board}}', ['board_id' => 'id']);
     }
 
     /**
@@ -134,7 +137,7 @@ class Board extends ActiveRecord
     public function getPosts(): \yii\db\ActiveQuery
     {
         return $this->hasMany(Post::class, ['topic_id' => 'id'])
-            ->via('topic');
+            ->via('topics');
     }
 
     /**

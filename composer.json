@@ -29,6 +29,7 @@
         "sandritsch91/yii2-widget-flatpickr": "^1.0.0",
         "simialbi/yii2-simialbi-base": ">=0.13.0 <1.0 | ^1.0.0",
         "simialbi/yii2-summernote": "^1.2.2",
+        "simialbi/yii2-widget-dropzone": "~2.0@dev",
         "bower-asset/autosize": "^4.0.2",
         "bower-asset/resumablejs": "^1.1.0"
     },
