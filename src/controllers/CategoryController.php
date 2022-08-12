@@ -25,7 +25,23 @@ class CategoryController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-//                        'roles' => ['bulletinAdministrator']
+                        'actions' => ['index'],
+                        'roles' => ['bulletinAdministrator']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['bulletinCreateCategory']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['bulletinUpdateCategory']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['bulletinDeleteCategory']
                     ]
                 ]
             ]

@@ -8,34 +8,32 @@ namespace simialbi\yii2\bulletin\models;
 
 use simialbi\yii2\models\UserInterface;
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\db\ActiveRecord;
 
 /**
  * @property int $id
- * @property string $title
- * @property bool $has_voting
- * @property bool $status
+ * @property int $topic_id
+ * @property string $question
+ * @property bool $multiple_answers_allowed
  * @property int|string $created_by
  * @property int|string $updated_by
  * @property int|string|\DateTimeInterface $created_at
  * @property int|string|\DateTimeInterface $updated_at
  *
- * @property-read Board[] $boards
- * @property-read Category[] $categories
- * @property-read Post[] $posts
- * @property-read Voting $voting
  * @property-read UserInterface $author
  * @property-read UserInterface $updater
+ * @property-read Topic $topic
+ * @property-read VotingAnswer[] $answers
+ * @property-read VotingUserAnswer[] $userAnswers
  */
-class Topic extends ActiveRecord
+class Voting extends ActiveRecord
 {
     /**
      * {@inheritDoc}
      */
     public static function tableName(): string
     {
-        return '{{%bulletin__topic}}';
+        return '{{%bulletin__voting}}';
     }
 
     /**
@@ -44,13 +42,13 @@ class Topic extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['id'], 'integer'],
-            ['title', 'string'],
-            [['status'], 'boolean'],
+            [['id', 'topic_id'], 'integer'],
+            ['question', 'string'],
+            ['multiple_answers_allowed', 'boolean'],
 
-            [['status', 'has_voting'], 'default', 'value' => false],
+            ['multiple_answers_allowed', 'default', 'value' => false],
 
-            [['title', 'status'], 'required']
+            [['topic_id', 'question', 'multiple_answers_allowed'], 'required']
         ];
     }
 
@@ -83,14 +81,14 @@ class Topic extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'id' => Yii::t('simialbi/bulletin/model/topic', 'Id'),
-            'title' => Yii::t('simialbi/bulletin/model/topic', 'Title'),
-            'has_voting' => Yii::t('simialbi/bulletin/model/topic', 'Has voting'),
-            'status' => Yii::t('simialbi/bulletin/model/topic', 'Status'),
-            'created_by' => Yii::t('simialbi/bulletin/model/topic', 'Created by'),
-            'updated_by' => Yii::t('simialbi/bulletin/model/topic', 'Updated by'),
-            'created_at' => Yii::t('simialbi/bulletin/model/topic', 'Created at'),
-            'updated_at' => Yii::t('simialbi/bulletin/model/topic', 'Updated at')
+            'id' => Yii::t('simialbi/bulletin/model/voting', 'Id'),
+            'topic_id' => Yii::t('simialbi/bulletin/model/voting', 'Topic'),
+            'question' => Yii::t('simialbi/bulletin/model/voting', 'Question'),
+            'multiple_answers_allowed' => Yii::t('simialbi/bulletin/model/voting', 'Multiple answers'),
+            'created_by' => Yii::t('simialbi/bulletin/model/voting', 'Created by'),
+            'updated_by' => Yii::t('simialbi/bulletin/model/voting', 'Updated by'),
+            'created_at' => Yii::t('simialbi/bulletin/model/voting', 'Created at'),
+            'updated_at' => Yii::t('simialbi/bulletin/model/voting', 'Updated at')
         ];
     }
 
@@ -113,42 +111,30 @@ class Topic extends ActiveRecord
     }
 
     /**
-     * Get associated board
+     * Get associated topic
      * @return \yii\db\ActiveQuery
-     * @throws InvalidConfigException
      */
-    public function getBoards(): \yii\db\ActiveQuery
+    public function getTopic(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(Board::class, ['id' => 'board_id'])
-            ->viaTable('{{%bulletin__topic_board}}', ['topic_id' => 'id']);
+        return $this->hasOne(Topic::class, ['id' => 'topic_id']);
     }
 
     /**
-     * Get associated categories
+     * Get associated answers
      * @return \yii\db\ActiveQuery
-     * @throws InvalidConfigException
      */
-    public function getCategories(): \yii\db\ActiveQuery
+    public function getAnswers(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(Category::class, ['id' => 'category_id'])
-            ->viaTable('{{%bulletin__topic_category}}', ['topic_id' => 'id']);
+        return $this->hasMany(VotingAnswer::class, ['voting_id' => 'id']);
     }
 
     /**
-     * Get associated posts
+     * Get associated user answers via answers
      * @return \yii\db\ActiveQuery
      */
-    public function getPosts(): \yii\db\ActiveQuery
+    public function getUserAnswers(): \yii\db\ActiveQuery
     {
-        return $this->hasMany(Post::class, ['topic_id' => 'id']);
-    }
-
-    /**
-     * Get associated voting
-     * @return \yii\db\ActiveQuery
-     */
-    public function getVoting(): \yii\db\ActiveQuery
-    {
-        return $this->hasOne(Voting::class, ['topic_id' => 'id']);
+        return $this->hasMany(VotingUserAnswer::class, ['answer_id' => 'id'])
+            ->via('answers');
     }
 }

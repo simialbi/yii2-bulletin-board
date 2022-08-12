@@ -15,6 +15,19 @@ $this->params['breadcrumbs'] = [
     $this->title
 ];
 
+$toolbar = [];
+if (Yii::$app->user->can('bulletinCreateBoard')) {
+    $toolbar = [
+        [
+            'content' => Html::a(FAS::i('plus'), ['create'], [
+                'class' => ['btn', 'btn-primary'],
+                'data' => [
+                    'pjax' => '0'
+                ]
+            ])
+        ]
+    ];
+}
 ?>
 <div class="sa-bulletin-board-index">
     <?= GridView::widget([
@@ -72,16 +85,7 @@ $this->params['breadcrumbs'] = [
         'panelBeforeTemplate' => '{pager}{summary}',
         'panelAfterTemplate' => '',
         'containerOptions' => [],
-        'toolbar' => [
-            [
-                'content' => Html::a(FAS::i('plus'), ['create'], [
-                    'class' => ['btn', 'btn-primary'],
-                    'data' => [
-                        'pjax' => '0'
-                    ]
-                ])
-            ]
-        ],
+        'toolbar' => $toolbar,
         'columns' => [
             [
                 'class' => '\kartik\grid\SerialColumn',
@@ -130,7 +134,11 @@ $this->params['breadcrumbs'] = [
             [
                 'class' => '\kartik\grid\ActionColumn',
                 'template' => '{update} {delete}',
-                'vAlign' => GridView::ALIGN_MIDDLE
+                'vAlign' => GridView::ALIGN_MIDDLE,
+                'visibleButtons' => [
+                    'update' =>  Yii::$app->user->can('bulletinUpdateBoard'),
+                    'delete' =>  Yii::$app->user->can('bulletinDeleteBoard')
+                ]
             ]
         ]
     ]); ?>

@@ -60,20 +60,22 @@ $this->params['breadcrumbs'] = [
                             'dataProvider' => $dataProvider,
                             'layout' => "<div class=\"card-body border-bottom py-2\">{summary}</div><div class=\"card-body p-0\"><div class=\"list-group list-group-flush\">{items}</div></div><div class=\"card-footer\">{pager}</div>",
                             'itemView' => '_topic-item',
+                            'viewParams' => [
+                                'board' => $board
+                            ],
                             'pager' => [
                                 'class' => $pagerClass,
                                 'hideOnSinglePage' => false,
                                 'listOptions' => ['class' => ['pagination', 'mb-0']]
                             ],
-                            'itemOptions' => function (Topic $model, int $index) use ($board) {
-                                $class = ['list-group-item', 'list-group-item-action'];
-                                if ($index % 2 === 0) {
+                            'itemOptions' => function (Topic $model, $key, int $index) use ($board) {
+                                $class = ['list-group-item', 'list-group-item-action', 'position-relative'];
+                                if ($index % 2 !== 0) {
                                     $class[] = 'bg-light';
                                 }
 
                                 return [
-                                    'tag' => 'a',
-                                    'href' => Url::to(['topic/view', 'id' => $model->id, 'boardId' => $board->id]),
+                                    'tag' => 'div',
                                     'class' => $class
                                 ];
                             },
@@ -87,3 +89,4 @@ $this->params['breadcrumbs'] = [
         </div>
     </div>
 </div>
+

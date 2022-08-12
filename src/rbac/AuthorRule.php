@@ -16,13 +16,18 @@ class AuthorRule extends Rule
     /**
      * @inheritdoc
      */
-    public $name = 'bulletin_isAuthor';
+    public $name = 'isAuthor';
 
     /**
      * {@inheritDoc}
      */
     public function execute($user, $item, $params): bool
     {
-        return isset($params['post']) && $params['post']->created_by == $user;
+        if (isset($params['post'])) {
+            return $params['post']->created_by == $user;
+        } elseif (isset($params['topic'])) {
+            return $params['topic']->created_by == $user;
+        }
+        return false;
     }
 }

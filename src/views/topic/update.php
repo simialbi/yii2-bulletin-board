@@ -19,17 +19,23 @@ if (class_exists('\yii\bootstrap4\ActiveForm')) {
 /** @var $voting \simialbi\yii2\bulletin\models\Voting */
 /** @var $votingAnswer \simialbi\yii2\bulletin\models\VotingAnswer */
 
-$this->title = Yii::t('simialbi/bulletin', 'Create topic');
+$this->title = Yii::t('simialbi/bulletin', 'Update topic {topic}', [
+    'topic' => $topic->title
+]);
 $this->params['breadcrumbs'] = [
     [
         'label' => Yii::t('simialbi/bulletin', 'Boards'),
         'url' => ['bulletin/index']
     ],
+    [
+        'label' => $topic->title,
+        'url' => ['topic/view', 'id' => $topic->id, 'boardId' => $boardId],
+    ],
     $this->title
 ];
 ?>
 
-<div class="sa-bulletin-topic-create">
+<div class="sa-bulletin-topic-update">
     <?php $form = $class::begin([
         'id' => 'createTopicForm'
     ]); ?>

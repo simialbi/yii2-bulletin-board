@@ -189,10 +189,6 @@ class m220727_104902_init extends Migration
             $deleteTopic->description = 'Delete a bulletin board topic and all of it\'s contents';
             $auth->add($deleteTopic);
 
-            $createPost = $auth->createPermission('bulletinCreatePost');
-            $createPost->description = 'Create a bulletin board post';
-            $auth->add($createPost);
-
             $updatePost = $auth->createPermission('bulletinUpdatePost');
             $updatePost->description = 'Update a bulletin board post';
             $auth->add($updatePost);
@@ -234,7 +230,6 @@ class m220727_104902_init extends Migration
             $auth->addChild($updateOwnPost, $updatePost);
             $auth->addChild($deleteOwnPost, $deletePost);
             $auth->addChild($updateOwnTopic, $updateTopic);
-            $auth->addChild($author, $createPost);
             $auth->addChild($author, $updateOwnPost);
             $auth->addChild($author, $deleteOwnPost);
             $auth->addChild($author, $createTopic);
@@ -288,13 +283,12 @@ class m220727_104902_init extends Migration
             $createTopic = $auth->getPermission('bulletinCreateTopic');
             $updateTopic = $auth->getPermission('bulletinUpdateTopic');
             $deleteTopic = $auth->getPermission('bulletinDeleteTopic');
-            $createPost = $auth->getPermission('bulletinCreatePost');
             $updatePost = $auth->getPermission('bulletinUpdatePost');
             $deletePost = $auth->getPermission('bulletinDeletePost');
             $administrator = $auth->getRole('bulletinAdministrator');
             $moderator = $auth->getRole('bulletinModerator');
             $author = $auth->getRole('bulletinAuthor');
-            $rule = $auth->getRule('bulletin_isAuthor');
+            $rule = $auth->getRule('isAuthor');
             $updateOwnPost = $auth->getPermission('bulletinUpdateOwnPost');
             $deleteOwnPost = $auth->getPermission('bulletinDeleteOwnPost');
             $updateOwnTopic = $auth->getPermission('bulletinUpdateOwnTopic');
@@ -312,7 +306,6 @@ class m220727_104902_init extends Migration
             $auth->remove($createTopic);
             $auth->remove($updateTopic);
             $auth->remove($deleteTopic);
-            $auth->remove($createPost);
             $auth->remove($updatePost);
             $auth->remove($deletePost);
             $auth->remove($administrator);

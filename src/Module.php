@@ -8,9 +8,10 @@ namespace simialbi\yii2\bulletin;
 
 use simialbi\yii2\models\UserInterface;
 use Yii;
+use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
 
-class Module extends \simialbi\yii2\base\Module
+class Module extends \simialbi\yii2\base\Module implements BootstrapInterface
 {
     /**
      * @inheritdoc
@@ -25,7 +26,6 @@ class Module extends \simialbi\yii2\base\Module
 
     /**
      * {@inheritDoc}
-     * @throws \ReflectionException
      * @throws InvalidConfigException
      */
     public function init(): void
@@ -49,5 +49,18 @@ class Module extends \simialbi\yii2\base\Module
         parent::init();
 
         $this->registerTranslations();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function bootstrap($app)
+    {
+        if ($app instanceof \yii\web\Application) {
+            /** @var \WebApplication $app */
+            $roles = $app->authManager->getDefaultRoles();
+            $roles[] = 'bulletinAuthor';
+            $app->authManager->setDefaultRoles($roles);
+        }
     }
 }

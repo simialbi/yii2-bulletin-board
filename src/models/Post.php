@@ -9,6 +9,7 @@ namespace simialbi\yii2\bulletin\models;
 use simialbi\yii2\models\UserInterface;
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\FileHelper;
 
 /**
  * @property int $id
@@ -127,5 +128,33 @@ class Post extends ActiveRecord
     public function getAttachments(): \yii\db\ActiveQuery
     {
         return $this->hasMany(Attachment::class, ['post_id' => 'id']);
+    }
+
+    /**
+     * @return void
+     * @throws \yii\base\Exception
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function saveAttachments()
+    {
+        $attachments = Yii::$app->request->getBodyParam('attachments', []);
+
+        if (!empty($attachments)) {
+            $path = FileHelper::normalizePath(Yii::getAlias('@webroot/web/uploads/bulletin-board/' . $this->id));
+            FileHelper::createDirectory($path);
+            foreach ($attachments as $fileName) {
+                $fPath = FileHelper::normalizePath(Yii::getAlias('@webroot/web/uploads/bulletin-board/' . $fileName));
+                if (file_exists($fPath)) {
+                    $attachment = new Attachment();
+                    $attachment->path = Yii::getAlias('@web/web/uploads/bulletin-board/' . $this->id . '/' . $fileName);
+                    $attachment->mime_type = FileHelper::getMimeType($fPath);
+                    $attachment->post_id = $this->id;
+                    $attachment->name = $fileName;
+                    $attachment->size = filesize($fPath);
+                    rename($fPath, $path . DIRECTORY_SEPARATOR . $fileName);
+                    $attachment->save();
+                }
+            }
+        }
     }
 }

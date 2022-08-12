@@ -11,40 +11,36 @@ if (class_exists('\yii\bootstrap4\ActiveForm')) {
 }
 
 /** @var $this \yii\web\View */
-/** @var $boardId int */
-/** @var $boards array */
 /** @var $topic \simialbi\yii2\bulletin\models\Topic */
-/** @var $post \simialbi\yii2\bulletin\models\Post */
-/** @var $categories array */
-/** @var $voting \simialbi\yii2\bulletin\models\Voting */
-/** @var $votingAnswer \simialbi\yii2\bulletin\models\VotingAnswer */
+/** @var $model \simialbi\yii2\bulletin\models\Post */
+/** @var $boardId int */
 
-$this->title = Yii::t('simialbi/bulletin', 'Create topic');
+$this->title = Yii::t('simialbi/bulletin', 'Update post {post}', [
+    'post' => $model->title
+]);
 $this->params['breadcrumbs'] = [
     [
         'label' => Yii::t('simialbi/bulletin', 'Boards'),
         'url' => ['bulletin/index']
     ],
+    [
+        'label' => $topic->title,
+        'url' => ['topic/view', 'id' => $topic->id, 'boardId' => $boardId]
+    ],
     $this->title
 ];
 ?>
 
-<div class="sa-bulletin-topic-create">
+<div class="sa-bulletin-post-update">
     <?php $form = $class::begin([
-        'id' => 'createTopicForm'
+        'id' => 'createPostForm'
     ]); ?>
 
     <div class="card">
         <div class="card-body">
             <?= $this->render('_form', [
                 'form' => $form,
-                'boardId' => $boardId,
-                'boards' => $boards,
-                'topic' => $topic,
-                'post' => $post,
-                'categories' => $categories,
-                'voting' => $voting,
-                'votingAnswer' => $votingAnswer
+                'model' => $model
             ]); ?>
         </div>
         <div class="card-footer d-flex justify-content-end">

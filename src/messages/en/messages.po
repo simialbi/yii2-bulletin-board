@@ -11,12 +11,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgctxt "simialbi/bulletin"
+msgid "Authorized users"
+msgstr "Authorized users"
+
+msgctxt "simialbi/bulletin"
+msgid "Boards"
+msgstr "Boards"
+
+msgctxt "simialbi/bulletin"
 msgid "Categories"
 msgstr "Categories"
 
 msgctxt "simialbi/bulletin"
+msgid "Create board"
+msgstr "Create board"
+
+msgctxt "simialbi/bulletin"
 msgid "Create category"
 msgstr "Create category"
+
+msgctxt "simialbi/bulletin"
+msgid "Create new post"
+msgstr "Create new post"
+
+msgctxt "simialbi/bulletin"
+msgid "Create topic"
+msgstr "Create topic"
+
+msgctxt "simialbi/bulletin"
+msgid "Drop files here to upload"
+msgstr "Drop files here to upload"
+
+msgctxt "simialbi/bulletin"
+msgid "Overview"
+msgstr "Overview"
+
+msgctxt "simialbi/bulletin"
+msgid "Remove file"
+msgstr "Remove file"
+
+msgctxt "simialbi/bulletin"
+msgid "Save"
+msgstr "Save"
+
+msgctxt "simialbi/bulletin"
+msgid "Select boards"
+msgstr "Select boards"
+
+msgctxt "simialbi/bulletin"
+msgid "Select categories"
+msgstr "Select categories"
+
+msgctxt "simialbi/bulletin"
+msgid "Select users"
+msgstr "Select users"
+
+msgctxt "simialbi/bulletin"
+msgid "Update board {board}"
+msgstr "Update board {board}"
+
+msgctxt "simialbi/bulletin"
+msgid "Update category {category}"
+msgstr "Update category {category}"
+
+msgctxt "simialbi/bulletin"
+msgid "Update topic {topic}"
+msgstr "Update topic {topic}"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created at"
@@ -161,10 +221,6 @@ msgstr "Updated at"
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated by"
 msgstr "Updated by"
-
-msgctxt "simialbi/bulletin/model/topic"
-msgid "Category"
-msgstr "Category"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Created at"

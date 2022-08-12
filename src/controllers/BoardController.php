@@ -29,7 +29,23 @@ class BoardController extends \yii\web\Controller
                 'rules' => [
                     [
                         'allow' => true,
-//                        'roles' => ['bulletinAdministrator']
+                        'actions' => ['index'],
+                        'roles' => ['bulletinAdministrator']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['bulletinCreateBoard']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['bulletinUpdateBoard']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['bulletinDeleteBoard']
                     ]
                 ]
             ]

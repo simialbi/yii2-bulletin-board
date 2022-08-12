@@ -1,5 +1,8 @@
 <?php
 
+use rmrevin\yii\fontawesome\FAS;
+use yii\helpers\Html;
+
 $class = '\yii\widgets\ActiveForm';
 if (class_exists('\yii\bootstrap4\ActiveForm')) {
     $class = '\yii\bootstrap4\ActiveForm';
@@ -33,6 +36,11 @@ $this->params['breadcrumbs'] = [
             <?= $this->render('_form', [
                 'form' => $form,
                 'model' => $model
+            ]); ?>
+        </div>
+        <div class="card-footer d-flex justify-content-end">
+            <?= Html::submitButton(FAS::i('save') . ' ' . Yii::t('simialbi/bulletin', 'Save'), [
+                'class' => ['btn', 'btn-primary']
             ]); ?>
         </div>
     </div>

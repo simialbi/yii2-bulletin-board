@@ -11,12 +11,72 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgctxt "simialbi/bulletin"
+msgid "Authorized users"
+msgstr "Autorisierte Benutzer"
+
+msgctxt "simialbi/bulletin"
+msgid "Boards"
+msgstr "Foren"
+
+msgctxt "simialbi/bulletin"
 msgid "Categories"
 msgstr "Kategorien"
 
 msgctxt "simialbi/bulletin"
+msgid "Create board"
+msgstr "Forum erstellen"
+
+msgctxt "simialbi/bulletin"
 msgid "Create category"
 msgstr "Kategorie erstellen"
+
+msgctxt "simialbi/bulletin"
+msgid "Create new post"
+msgstr "Beitrag erstellen"
+
+msgctxt "simialbi/bulletin"
+msgid "Create topic"
+msgstr "Thema erstellen"
+
+msgctxt "simialbi/bulletin"
+msgid "Drop files here to upload"
+msgstr "Dateien hierhin ziehen"
+
+msgctxt "simialbi/bulletin"
+msgid "Overview"
+msgstr "Übersicht"
+
+msgctxt "simialbi/bulletin"
+msgid "Remove file"
+msgstr "Datei löschen"
+
+msgctxt "simialbi/bulletin"
+msgid "Save"
+msgstr "Speichern"
+
+msgctxt "simialbi/bulletin"
+msgid "Select boards"
+msgstr "Foren wählen"
+
+msgctxt "simialbi/bulletin"
+msgid "Select categories"
+msgstr "Kategorien wählen"
+
+msgctxt "simialbi/bulletin"
+msgid "Select users"
+msgstr "Benutzer wählen"
+
+msgctxt "simialbi/bulletin"
+msgid "Update board {board}"
+msgstr "Forum {board} bearbeiten"
+
+msgctxt "simialbi/bulletin"
+msgid "Update category {category}"
+msgstr "Kategorie {category} bearbeiten"
+
+msgctxt "simialbi/bulletin"
+msgid "Update topic {topic}"
+msgstr ""
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created at"
@@ -32,23 +92,23 @@ msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Mime type"
-msgstr ""
+msgstr "Mime Typ"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Path"
-msgstr ""
+msgstr "Pfad"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Post"
-msgstr ""
+msgstr "Beitrag"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Size"
-msgstr ""
+msgstr "Grösse"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Updated at"
@@ -152,7 +212,7 @@ msgstr "Titel"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Topic"
-msgstr ""
+msgstr "Thema"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated at"
@@ -161,10 +221,6 @@ msgstr "Geändert am"
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated by"
 msgstr "Geändert von"
-
-msgctxt "simialbi/bulletin/model/topic"
-msgid "Category"
-msgstr ""
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Created at"
@@ -180,11 +236,11 @@ msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Status"
-msgstr ""
+msgstr "Aktiv"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Title"
-msgstr ""
+msgstr "Titel"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Updated at"

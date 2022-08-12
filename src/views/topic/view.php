@@ -53,24 +53,47 @@ Pjax::begin([
                class="btn btn-primary mr-1 me-1">
                 <?= FAS::i('arrow-left'); ?>
             </a>
-            <h4 class="card-title m-0"><?= $topic->title; ?></h4>
+            <h4 class="card-title my-0 ml-2 ms-2"><?= $topic->title; ?></h4>
             <a type="button" href="<?= Url::to(['post/create', 'topicId' => $topic->id, 'boardId' => $board->id]); ?>"
                class="btn btn-primary ml-auto ms-auto" data-pjax="0">
                 <?= FAS::i('plus') ?>
             </a>
+            <?php if ($topic->has_voting): ?>
+                <a href="<?= Url::to(['voting/view', 'id' => $topic->voting->id, 'boardId' => $board->id]) ?>"
+                   class="btn btn-primary ml-1 ms-1">
+                    <?= FAS::i('ballot-check'); ?>
+                </a>
+            <?php endif; ?>
+            <?php if (Yii::$app->user->can('bulletinUpdateTopic', ['topic' => $topic])): ?>
+                <a href="<?= Url::to(['topic/update', 'id' => $topic->id, 'boardId' => $board->id]);?>"
+                   data-pjax="0" class="btn btn-primary ml-1 ms-1">
+                    <?= FAS::i('pencil') ?>
+                </a>
+            <?php endif; ?>
+            <?php if (Yii::$app->user->can('bulletinDeleteTopic', ['topic' => $topic])): ?>
+                <a href="<?= Url::to(['topic/delete', 'id' => $topic->id, 'boardId' => $board->id]); ?>"
+                   data-pjax="0" class="btn btn-danger ml-1 ms-1" data-method="post"
+                   data-confirm="<?= Yii::t('yii', 'Are you sure you want to delete this item?'); ?>">
+                    <?= FAS::i('trash-alt'); ?>
+                </a>
+            <?php endif; ?>
         </div>
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
             'layout' => "<div class=\"card-body border-bottom py-2\">{summary}</div><div class=\"card-body p-0\"><div class=\"list-group list-group-flush\">{items}</div></div><div class=\"card-footer\">{pager}</div>",
             'itemView' => '_post-item',
+            'viewParams' => [
+                'page' => Yii::$app->request->get('page', 1),
+                'boardId' => $board->id
+            ],
             'pager' => [
                 'class' => $pagerClass,
                 'hideOnSinglePage' => false,
                 'listOptions' => ['class' => ['pagination', 'mb-0']]
             ],
-            'itemOptions' => function (Post $model, int $index) {
+            'itemOptions' => function (Post $model, $key, int $index) {
                 $class = ['list-group-item'];
-                if ($index % 2 === 0) {
+                if ($index % 2 !== 0) {
                     $class[] = 'bg-light';
                 }
 

@@ -51,6 +51,9 @@ class BulletinController extends Controller
 
         $topicDataProvider = new ActiveDataProvider([
             'query' => $activeBoard ? $activeBoard->getTopics() : new Query(),
+            'pagination' => [
+                'pageSize' => 10
+            ],
             'sort' => [
                 'defaultOrder' => [
                     'created_at' => SORT_DESC

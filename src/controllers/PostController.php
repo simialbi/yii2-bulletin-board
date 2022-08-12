@@ -9,7 +9,11 @@ namespace simialbi\yii2\bulletin\controllers;
 use simialbi\yii2\bulletin\models\Post;
 use simialbi\yii2\bulletin\models\Topic;
 use Yii;
+use yii\base\Exception;
+use yii\helpers\FileHelper;
 use yii\web\Controller;
+use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class PostController extends Controller
 {
@@ -24,8 +28,31 @@ class PostController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-//                        'actions' => ['create']
-                    ]
+                        'actions' => ['create'],
+                        'roles' => ['bulletinAuthor']
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update'],
+                        'roles' => ['bulletinUpdatePost'],
+                        'roleParams' => function () {
+                            return ['topic' => $this->findModel(Yii::$app->request->get('id'))];
+                        }
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['delete'],
+                        'roles' => ['bulletinDeletePost'],
+                        'roleParams' => function () {
+                            return ['topic' => $this->findModel(Yii::$app->request->get('id'))];
+                        }
+                    ],
+                ]
+            ],
+            'verbs' => [
+                'class' => '\yii\filters\VerbFilter',
+                'actions' => [
+                    'delete' => ['POST', 'DELETE'],
                 ]
             ]
         ];
@@ -37,7 +64,9 @@ class PostController extends Controller
      * @param int $topicId The topic's id
      * @param int $boardId The current active board's id
      *
-     * @return string|\yii\web\Response
+     * @return string|Response
+     *
+     * @throws Exception
      */
     public function actionCreate(int $topicId, int $boardId)
     {
@@ -48,6 +77,8 @@ class PostController extends Controller
         ]);
 
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
+            $post->saveAttachments();
+
             return $this->redirect(['topic/view', 'id' => $topicId, 'boardId' => $boardId]);
         }
 
@@ -56,5 +87,69 @@ class PostController extends Controller
             'model' => $post,
             'boardId' => $boardId
         ]);
+    }
+
+    /**
+     *
+     * @param int $id The post's id
+     * @param int $boardId The active board's id
+     *
+     * @return string|Response
+     *
+     * @throws Exception|NotFoundHttpException|\yii\base\InvalidConfigException
+     */
+    public function actionUpdate(int $id, int $boardId)
+    {
+        $post = $this->findModel($id);
+        $topic = $post->topic;
+
+        if ($post->load(Yii::$app->request->post()) && $post->save()) {
+            $post->saveAttachments();
+
+            return $this->redirect(['topic/view', 'id' => $post->topic->id, 'boardId' => $boardId]);
+        }
+
+        return $this->render('update', [
+            'topic' => $topic,
+            'model' => $post,
+            'boardId' => $boardId
+        ]);
+    }
+
+    /**
+     * @param int $id The post's id
+     * @param int $boardId The active board's id
+     *
+     * @return Response
+     * @throws NotFoundHttpException|\yii\base\ErrorException|\yii\db\StaleObjectException
+     */
+    public function actionDelete(int $id, int $boardId): Response
+    {
+        $model = $this->findModel($id);
+
+        $path = FileHelper::normalizePath(Yii::getAlias("@webroot/web/uploads/bulletin-board/{$model->id}"));
+        FileHelper::removeDirectory($path);
+
+        $model->delete();
+
+        return $this->redirect(['topic/view', 'id' => $model->topic_id, 'boardId' => $boardId]);
+    }
+
+    /**
+     * Finds the model based on its primary key value.
+     * If the model is not found, a 404 HTTP exception will be thrown.
+     *
+     * @param mixed $condition
+     *
+     * @return Post the loaded model
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    protected function findModel($condition): Post
+    {
+        if (($model = Post::findOne($condition)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
     }
 }
