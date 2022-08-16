@@ -56,7 +56,10 @@ Pjax::begin([
             <h4 class="card-title my-0 ml-2 ms-2"><?= $topic->title; ?></h4>
             <a type="button" href="<?= Url::to(['post/create', 'topicId' => $topic->id, 'boardId' => $board->id]); ?>"
                class="btn btn-primary ml-auto ms-auto" data-pjax="0">
-                <?= FAS::i('plus') ?>
+                <?= FAS::i('plus'); ?>
+                <span class="d-none d-lg-inline-block">
+                    <?= Yii::t('simialbi/bulletin', 'Create new post'); ?>
+                </span>
             </a>
             <?php if ($topic->has_voting): ?>
                 <a href="<?= Url::to(['voting/view', 'id' => $topic->voting->id, 'boardId' => $board->id]) ?>"

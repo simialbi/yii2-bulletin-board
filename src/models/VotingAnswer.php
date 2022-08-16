@@ -77,7 +77,7 @@ class VotingAnswer extends ActiveRecord
     {
         return [
             'id' => Yii::t('simialbi/bulletin/model/voting-answer', 'Id'),
-            'voting_id' => Yii::t('simialbi/bulletin/model/voting-answer', 'voting'),
+            'voting_id' => Yii::t('simialbi/bulletin/model/voting-answer', 'Voting'),
             'answer' => Yii::t('simialbi/bulletin/model/voting-answer', 'Answer'),
             'created_by' => Yii::t('simialbi/bulletin/model/voting-answer', 'Created by'),
             'updated_by' => Yii::t('simialbi/bulletin/model/voting-answer', 'Updated by'),

@@ -78,7 +78,7 @@ $i = 0;
             ])->checkbox(); ?>
             <?= $form->field($voting, 'multiple_answers_allowed', [
                 'options' => [
-                    'class' => ['form-group', 'col-2']
+                    'class' => ['form-group', 'col-3']
                 ]
             ])->checkbox(['disabled' => !$topic->has_voting]); ?>
             <?= $form->field($post, 'text', [
@@ -113,7 +113,7 @@ $i = 0;
                 }
                 ?>
                 <?= DropZone::widget([
-                    'url' => Url::to(['attachment/upload']),
+                    'url' => Url::to(['attachment/upload', 'boardId' => $boardId]),
                     'name' => 'attachment',
                     'storedFiles' => $files,
                     'options' => [

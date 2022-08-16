@@ -17,7 +17,7 @@ $toolbar = [];
 if (Yii::$app->user->can('bulletinCreateCategory')) {
     $toolbar = [
         [
-            'content' => Html::a(FAS::i('plus'), ['create'], [
+            'content' => Html::a(FAS::i('plus') . ' <span class="d-none d-lg-inline-block">' . Yii::t('simialbi/bulletin', 'Create category') . '</span>', ['create'], [
                 'class' => ['btn', 'btn-primary'],
                 'data' => [
                     'pjax' => '0'

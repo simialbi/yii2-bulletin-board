@@ -18,6 +18,7 @@ use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
 use yii\db\StaleObjectException;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -37,7 +38,10 @@ class TopicController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['create'],
-                        'roles' => ['bulletinCreateTopic']
+                        'roles' => ['bulletinCreateTopic'],
+                        'roleParams' => function () {
+                            return ['board' => Board::findOne(Yii::$app->request->get('boardId'))];
+                        }
                     ],
                     [
                         'allow' => true,
@@ -96,9 +100,16 @@ class TopicController extends Controller
                 $category = Category::findOne($categoryId);
                 $topic->link('categories', $category);
             }
+            $emails = [];
             foreach ($boards as $bId) {
                 $board = Board::findOne($bId);
                 $topic->link('boards', $board);
+
+                foreach ($board->users as $user) {
+                    if ($user->email) {
+                        $emails[] = $user->email;
+                    }
+                }
             }
 
             $post->title = $topic->title;
@@ -106,6 +117,20 @@ class TopicController extends Controller
             $post->topic_id = $topic->id;
             $post->save();
             $post->saveAttachments();
+
+            if (!empty($emails) && Yii::$app->mailer) {
+                $emails = array_unique($emails);
+                $from = ArrayHelper::getValue(Yii::$app->params, 'senderEmail', 'no-reply@' . Yii::$app->request->hostName);
+                Yii::$app->mailer
+                    ->compose([
+                        'html' => '@simialbi/yii2/bulletin/mail/new-topic-html',
+                        'text' => '@simialbi/yii2/bulletin/mail/new-topic-text'
+                    ], ['topic' => $topic, 'post' => $post, 'boardId' => $boardId])
+                    ->setFrom($from)
+                    ->setTo($emails)
+                    ->setSubject(Yii::t('simialbi/bulletin', 'New topic created'))
+                    ->send();
+            }
 
             if ($topic->has_voting && $voting->load(Yii::$app->request->post())) {
                 $voting->topic_id = $topic->id;

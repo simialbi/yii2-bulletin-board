@@ -10,6 +10,7 @@ use simialbi\yii2\bulletin\models\Post;
 use simialbi\yii2\bulletin\models\Topic;
 use Yii;
 use yii\base\Exception;
+use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -78,6 +79,28 @@ class PostController extends Controller
 
         if ($post->load(Yii::$app->request->post()) && $post->save()) {
             $post->saveAttachments();
+
+            $emails = [];
+            foreach ($post->topic->boards as $board) {
+                foreach ($board->users as $user) {
+                    if ($user->email) {
+                        $emails[] = $user->email;
+                    }
+                }
+            }
+            if (!empty($emails) && Yii::$app->mailer) {
+                $emails = array_unique($emails);
+                $from = ArrayHelper::getValue(Yii::$app->params, 'senderEmail', 'no-reply@' . Yii::$app->request->hostName);
+                Yii::$app->mailer
+                    ->compose([
+                        'html' => '@simialbi/yii2/bulletin/mail/new-post-html',
+                        'text' => '@simialbi/yii2/bulletin/mail/new-post-text'
+                    ], ['topic' => $topic, 'post' => $post, 'boardId' => $boardId])
+                    ->setFrom($from)
+                    ->setTo($emails)
+                    ->setSubject(Yii::t('simialbi/bulletin', 'New post created'))
+                    ->send();
+            }
 
             return $this->redirect(['topic/view', 'id' => $topicId, 'boardId' => $boardId]);
         }

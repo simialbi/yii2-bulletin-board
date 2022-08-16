@@ -53,7 +53,10 @@ $this->params['breadcrumbs'] = [
                             <h4 class="card-title m-0"><?= $board->title; ?></h4>
                             <a type="button" href="<?= Url::to(['topic/create', 'boardId' => $board->id]); ?>"
                                class="btn btn-primary ml-auto ms-auto" data-pjax="0">
-                                <?= FAS::i('plus') ?>
+                                <?= FAS::i('plus'); ?>
+                                <span class="d-none d-lg-inline-block">
+                                    <?= Yii::t('simialbi/bulletin', 'Create topic'); ?>
+                                </span>
                             </a>
                         </div>
                         <?= ListView::widget([

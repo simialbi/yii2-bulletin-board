@@ -11,6 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgctxt "simialbi/bulletin"
+msgid "Answers"
+msgstr "Answers"
+
+msgctxt "simialbi/bulletin"
 msgid "Authorized users"
 msgstr "Authorized users"
 
@@ -43,6 +47,14 @@ msgid "Drop files here to upload"
 msgstr "Drop files here to upload"
 
 msgctxt "simialbi/bulletin"
+msgid "New post created"
+msgstr "New post created"
+
+msgctxt "simialbi/bulletin"
+msgid "New topic created"
+msgstr "New topic created"
+
+msgctxt "simialbi/bulletin"
 msgid "Overview"
 msgstr "Overview"
 
@@ -67,12 +79,20 @@ msgid "Select users"
 msgstr "Select users"
 
 msgctxt "simialbi/bulletin"
+msgid "To the topic"
+msgstr "To the topic"
+
+msgctxt "simialbi/bulletin"
 msgid "Update board {board}"
 msgstr "Update board {board}"
 
 msgctxt "simialbi/bulletin"
 msgid "Update category {category}"
 msgstr "Update category {category}"
+
+msgctxt "simialbi/bulletin"
+msgid "Update post {post}"
+msgstr "Update post {post}"
 
 msgctxt "simialbi/bulletin"
 msgid "Update topic {topic}"
@@ -231,6 +251,10 @@ msgid "Created by"
 msgstr "Created by"
 
 msgctxt "simialbi/bulletin/model/topic"
+msgid "Has voting"
+msgstr "Has voting"
+
+msgctxt "simialbi/bulletin/model/topic"
 msgid "Id"
 msgstr "Id"
 
@@ -249,4 +273,80 @@ msgstr "Updated at"
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Updated by"
 msgstr "Updated by"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Created at"
+msgstr "Created at"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Created by"
+msgstr "Created by"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Id"
+msgstr "Id"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Multiple answers"
+msgstr "Multiple answers"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Question"
+msgstr "Question"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Topic"
+msgstr "Topic"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Updated at"
+msgstr "Updated at"
+
+msgctxt "simialbi/bulletin/model/voting"
+msgid "Updated by"
+msgstr "Updated by"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Answer"
+msgstr "Answer"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Created at"
+msgstr "Created at"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Created by"
+msgstr "Created by"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Id"
+msgstr "Id"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Updated at"
+msgstr "Updated at"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Updated by"
+msgstr "Updated by"
+
+msgctxt "simialbi/bulletin/model/voting-answer"
+msgid "Voting"
+msgstr "Voting"
+
+msgctxt "simialbi/bulletin/model/voting-user-answer"
+msgid "Answer"
+msgstr "Answer"
+
+msgctxt "simialbi/bulletin/model/voting-user-answer"
+msgid "Created at"
+msgstr "Created at"
+
+msgctxt "simialbi/bulletin/model/voting-user-answer"
+msgid "Id"
+msgstr "Id"
+
+msgctxt "simialbi/bulletin/model/voting-user-answer"
+msgid "User"
+msgstr "User"
 

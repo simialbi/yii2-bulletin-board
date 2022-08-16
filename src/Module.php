@@ -11,13 +11,12 @@ use Yii;
 use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
 
-class Module extends \simialbi\yii2\base\Module implements BootstrapInterface
+class Module extends \simialbi\yii2\base\Module
 {
     /**
      * @inheritdoc
      */
     public $controllerNamespace = '\simialbi\yii2\bulletin\controllers';
-
 
     /**
      * @inheritdoc
@@ -49,18 +48,5 @@ class Module extends \simialbi\yii2\base\Module implements BootstrapInterface
         parent::init();
 
         $this->registerTranslations();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function bootstrap($app)
-    {
-        if ($app instanceof \yii\web\Application) {
-            /** @var \WebApplication $app */
-            $roles = $app->authManager->getDefaultRoles();
-            $roles[] = 'bulletinAuthor';
-            $app->authManager->setDefaultRoles($roles);
-        }
     }
 }

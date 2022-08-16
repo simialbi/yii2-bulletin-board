@@ -6,6 +6,7 @@
 
 namespace simialbi\yii2\bulletin\migrations;
 
+use simialbi\yii2\bulletin\rbac\RelatedRule;
 use simialbi\yii2\bulletin\rbac\AuthorRule;
 use Yii;
 use yii\db\Migration;
@@ -205,8 +206,12 @@ class m220727_104902_init extends Migration
             $moderator->description = 'Bulletin board moderator';
             $auth->add($moderator);
 
+            $rule = new RelatedRule();
+            $auth->add($rule);
+
             $author = $auth->createRole('bulletinAuthor');
             $author->description = 'A normal bulletin board user';
+            $author->ruleName = $rule->name;
             $auth->add($author);
 
             $rule = new AuthorRule();
@@ -288,7 +293,8 @@ class m220727_104902_init extends Migration
             $administrator = $auth->getRole('bulletinAdministrator');
             $moderator = $auth->getRole('bulletinModerator');
             $author = $auth->getRole('bulletinAuthor');
-            $rule = $auth->getRule('isAuthor');
+            $isAuthor = $auth->getRule('isAuthor');
+            $isRelated = $auth->getRule('isRelated');
             $updateOwnPost = $auth->getPermission('bulletinUpdateOwnPost');
             $deleteOwnPost = $auth->getPermission('bulletinDeleteOwnPost');
             $updateOwnTopic = $auth->getPermission('bulletinUpdateOwnTopic');
@@ -299,7 +305,7 @@ class m220727_104902_init extends Migration
             $auth->remove($updateOwnPost);
             $auth->remove($deleteOwnPost);
             $auth->remove($updateOwnTopic);
-            $auth->remove($rule);
+            $auth->remove($isAuthor);
             $auth->remove($createCategory);
             $auth->remove($updateCategory);
             $auth->remove($deleteCategory);
@@ -311,6 +317,7 @@ class m220727_104902_init extends Migration
             $auth->remove($administrator);
             $auth->remove($moderator);
             $auth->remove($author);
+            $auth->remove($isRelated);
         }
     }
 }

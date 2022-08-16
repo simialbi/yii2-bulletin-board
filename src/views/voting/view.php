@@ -62,7 +62,8 @@ $form = $formClass::begin([
         <div class="card-body">
             <?php if ($userHasVoted): ?>
                 <?= $this->render('_results', [
-                    'model' => $model
+                    'model' => $model,
+                    'boardId' => $board->id
                 ]); ?>
             <?php else: ?>
                 <?= $this->render('_form', [

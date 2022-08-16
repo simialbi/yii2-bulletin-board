@@ -9,6 +9,7 @@ use yii\web\JsExpression;
 /** @var $this \yii\web\View */
 /** @var $form \yii\widgets\ActiveForm|\yii\bootstrap4\ActiveForm|\yii\bootstrap5\ActiveForm */
 /** @var $model \simialbi\yii2\bulletin\models\Post */
+/** @var $boardId int */
 
 ?>
 
@@ -50,7 +51,7 @@ use yii\web\JsExpression;
         }
         ?>
         <?= DropZone::widget([
-            'url' => Url::to(['attachment/upload']),
+            'url' => Url::to(['attachment/upload', 'boardId' => $boardId]),
             'name' => 'attachment',
             'storedFiles' => $files,
             'options' => [

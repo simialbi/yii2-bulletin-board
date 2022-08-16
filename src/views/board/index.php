@@ -19,7 +19,7 @@ $toolbar = [];
 if (Yii::$app->user->can('bulletinCreateBoard')) {
     $toolbar = [
         [
-            'content' => Html::a(FAS::i('plus'), ['create'], [
+            'content' => Html::a(FAS::i('plus') . ' <span class="d-none d-lg-inline-block">' . Yii::t('simialbi/bulletin', 'Create board') . '</span>', ['create'], [
                 'class' => ['btn', 'btn-primary'],
                 'data' => [
                     'pjax' => '0'

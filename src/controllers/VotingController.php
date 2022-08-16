@@ -87,6 +87,7 @@ class VotingController extends Controller
         $userAnswer = new VotingUserAnswer();
 
         $answers = Yii::$app->request->getBodyParam($userAnswer->formName());
+        $answers['answer_id'] = (array)$answers['answer_id'];
         foreach ($answers['answer_id'] as $answer) {
             $userAnswer = new VotingUserAnswer();
             $userAnswer->answer_id = $answer;
@@ -114,14 +115,18 @@ class VotingController extends Controller
         foreach ($model->answers as $answer) {
             $data[$answer->id] = [
                 'answer' => $answer->answer,
-                'count' => 0
+                'count' => 0,
+                'users' => ''
             ];
         }
         foreach ($model->userAnswers as $userAnswer) {
             $data[$userAnswer->answer_id]['count']++;
+            $data[$userAnswer->answer_id]['users'] .= ($data[$userAnswer->answer_id]['users'] === '')
+                ? $userAnswer->user->name
+                : ', ' . $userAnswer->user->name;
         }
 
-        return $data;
+        return array_values($data);
     }
 
     /**

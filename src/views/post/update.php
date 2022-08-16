@@ -40,7 +40,8 @@ $this->params['breadcrumbs'] = [
         <div class="card-body">
             <?= $this->render('_form', [
                 'form' => $form,
-                'model' => $model
+                'model' => $model,
+                'boardId' => $boardId
             ]); ?>
         </div>
         <div class="card-footer d-flex justify-content-end">
