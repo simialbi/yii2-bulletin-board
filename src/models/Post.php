@@ -14,6 +14,7 @@ use yii\helpers\FileHelper;
 /**
  * @property int $id
  * @property int $topic_id
+ * @property int|null $cite_id
  * @property string $title
  * @property string $text
  * @property bool $status
@@ -23,6 +24,7 @@ use yii\helpers\FileHelper;
  * @property int|string|\DateTimeInterface $updated_at
  *
  * @property-read Topic $topic
+ * @property-read Post $citedPost
  * @property-read Attachment[] $attachments
  * @property-read UserInterface $author
  * @property-read UserInterface $updater
@@ -43,7 +45,7 @@ class Post extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['id', 'topic_id'], 'integer'],
+            [['id', 'topic_id', 'cite_id'], 'integer'],
             [['title', 'text'], 'string'],
             ['status', 'boolean'],
 
@@ -84,6 +86,7 @@ class Post extends ActiveRecord
         return [
             'id' => Yii::t('simialbi/bulletin/model/post', 'Id'),
             'topic_id' => Yii::t('simialbi/bulletin/model/post', 'Topic'),
+            'cite_id' => Yii::t('simialbi/bulletin/model/post', 'Cited post'),
             'title' => Yii::t('simialbi/bulletin/model/post', 'Title'),
             'text' => Yii::t('simialbi/bulletin/model/post', 'Text'),
             'status' => Yii::t('simialbi/bulletin/model/post', 'Status'),
@@ -119,6 +122,15 @@ class Post extends ActiveRecord
     public function getTopic(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Topic::class, ['id' => 'topic_id']);
+    }
+
+    /**
+     * Get cited post
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCitedPost(): \yii\db\ActiveQuery
+    {
+        return $this->hasOne(Post::class, ['id' => 'cite_id']);
     }
 
     /**

@@ -55,7 +55,7 @@ Pjax::begin([
             </a>
             <h4 class="card-title my-0 ml-2 ms-2"><?= $topic->title; ?></h4>
             <a type="button" href="<?= Url::to(['post/create', 'topicId' => $topic->id, 'boardId' => $board->id]); ?>"
-               class="btn btn-primary ml-auto ms-auto" data-pjax="0">
+               class="btn btn-primary ml-auto ms-auto text-nowrap" data-pjax="0">
                 <?= FAS::i('plus'); ?>
                 <span class="d-none d-lg-inline-block">
                     <?= Yii::t('simialbi/bulletin', 'Create new post'); ?>
@@ -87,7 +87,8 @@ Pjax::begin([
             'itemView' => '_post-item',
             'viewParams' => [
                 'page' => Yii::$app->request->get('page', 1),
-                'boardId' => $board->id
+                'boardId' => $board->id,
+                'noCite' => false
             ],
             'pager' => [
                 'class' => $pagerClass,

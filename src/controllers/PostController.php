@@ -64,16 +64,18 @@ class PostController extends Controller
      *
      * @param int $topicId The topic's id
      * @param int $boardId The current active board's id
+     * @param int|null $postId The post to create a cite to
      *
      * @return string|Response
      *
      * @throws Exception
      */
-    public function actionCreate(int $topicId, int $boardId)
+    public function actionCreate(int $topicId, int $boardId, ?int $postId = null)
     {
         $topic = Topic::findOne($topicId);
         $post = new Post([
             'topic_id' => $topicId,
+            'cite_id' => $postId,
             'title' => 'Re: ' . $topic->title
         ]);
 
@@ -113,6 +115,7 @@ class PostController extends Controller
     }
 
     /**
+     * Update an existing post
      *
      * @param int $id The post's id
      * @param int $boardId The active board's id

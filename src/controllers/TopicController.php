@@ -261,7 +261,12 @@ class TopicController extends Controller
             ->one();
 
         $postDataProvider = new ActiveDataProvider([
-            'query' => $topic->getPosts()->with('topic')->with('topic.boards')->with('topic.categories')->with('attachments'),
+            'query' => $topic->getPosts()
+                ->with('topic')
+                ->with('topic.boards')
+                ->with('topic.categories')
+                ->with('attachments')
+                ->with('citedPost'),
             'pagination' => [
                 'pageSize' => 10
             ],
