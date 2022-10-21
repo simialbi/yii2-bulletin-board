@@ -28,7 +28,8 @@ class BulletinController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index']
+                        'actions' => ['index'],
+                        'roles' => ['@']
                     ]
                 ]
             ]
@@ -46,11 +47,16 @@ class BulletinController extends Controller
      */
     public function actionIndex(?int $id = null): string
     {
+        /** @var \simialbi\yii2\bulletin\models\Board $activeBoard */
         $activeBoard = null;
         $navigation = self::getBoardNavigation($id, $activeBoard);
 
         $topicDataProvider = new ActiveDataProvider([
-            'query' => $activeBoard ? $activeBoard->getTopics() : new Query(),
+            'query' => $activeBoard ? $activeBoard->getTopics()->where([
+                'or',
+                ['status' => true],
+                ['created_by' => Yii::$app->user->id]
+            ]) : new Query(),
             'pagination' => [
                 'pageSize' => 10
             ],

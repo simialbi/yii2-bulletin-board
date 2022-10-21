@@ -14,7 +14,6 @@ use simialbi\yii2\bulletin\models\Voting;
 use simialbi\yii2\bulletin\models\VotingAnswer;
 use Yii;
 use yii\base\ErrorException;
-use yii\base\Exception;
 use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
 use yii\db\StaleObjectException;
@@ -81,7 +80,7 @@ class TopicController extends Controller
      * @param int $boardId The board where to create the topic
      *
      * @return string|Response
-     * @throws Exception
+     * @throws \Exception
      */
     public function actionCreate(int $boardId)
     {
@@ -100,16 +99,9 @@ class TopicController extends Controller
                 $category = Category::findOne($categoryId);
                 $topic->link('categories', $category);
             }
-            $emails = [];
             foreach ($boards as $bId) {
                 $board = Board::findOne($bId);
                 $topic->link('boards', $board);
-
-                foreach ($board->users as $user) {
-                    if ($user->email) {
-                        $emails[] = $user->email;
-                    }
-                }
             }
 
             $post->title = $topic->title;
@@ -118,19 +110,7 @@ class TopicController extends Controller
             $post->save();
             $post->saveAttachments();
 
-            if (!empty($emails) && Yii::$app->mailer) {
-                $emails = array_unique($emails);
-                $from = ArrayHelper::getValue(Yii::$app->params, 'senderEmail', 'no-reply@' . Yii::$app->request->hostName);
-                Yii::$app->mailer
-                    ->compose([
-                        'html' => '@simialbi/yii2/bulletin/mail/new-topic-html',
-                        'text' => '@simialbi/yii2/bulletin/mail/new-topic-text'
-                    ], ['topic' => $topic, 'post' => $post, 'boardId' => $boardId])
-                    ->setFrom($from)
-                    ->setTo($emails)
-                    ->setSubject(Yii::t('simialbi/bulletin', 'New topic created'))
-                    ->send();
-            }
+            $this->sendMails($topic);
 
             if ($topic->has_voting && $voting->load(Yii::$app->request->post())) {
                 $voting->topic_id = $topic->id;
@@ -178,7 +158,7 @@ class TopicController extends Controller
      * @param int $boardId The active board id
      *
      * @return string|Response
-     * @throws Exception|InvalidConfigException|NotFoundHttpException
+     * @throws \Exception|InvalidConfigException|NotFoundHttpException
      */
     public function actionUpdate(int $id, int $boardId)
     {
@@ -188,37 +168,44 @@ class TopicController extends Controller
         $voting = ($topic->has_voting) ? $topic->voting : new Voting();
         $votingAnswer = new VotingAnswer();
 
-        if ($topic->load(Yii::$app->request->post()) && $post->load(Yii::$app->request->post()) && $topic->save() && $post->save()) {
-            $categories = Yii::$app->request->getBodyParam('categories', []);
-            $boards = Yii::$app->request->getBodyParam('boards', []);
+        if ($topic->load(Yii::$app->request->post()) && $post->load(Yii::$app->request->post())) {
+            $statusChanged = $topic->isAttributeChanged('status');
+            if ($topic->save() && $post->save()) {
+                $categories = Yii::$app->request->getBodyParam('categories', []);
+                $boards = Yii::$app->request->getBodyParam('boards', []);
 
-            $topic->unlinkAll('categories', true);
-            foreach ($categories as $categoryId) {
-                $category = Category::findOne($categoryId);
-                $topic->link('categories', $category);
-            }
-            $topic->unlinkAll('boards', true);
-            foreach ($boards as $bId) {
-                $board = Board::findOne($bId);
-                $topic->link('boards', $board);
-            }
+                $topic->unlinkAll('categories', true);
+                foreach ($categories as $categoryId) {
+                    $category = Category::findOne($categoryId);
+                    $topic->link('categories', $category);
+                }
+                $topic->unlinkAll('boards', true);
+                foreach ($boards as $bId) {
+                    $board = Board::findOne($bId);
+                    $topic->link('boards', $board);
+                }
 
-            $post->saveAttachments();
+                $post->saveAttachments();
 
-            if ($topic->has_voting && $voting->load(Yii::$app->request->post())) {
-                if ($voting->save()) {
-                    $voting->unlinkAll('answers', true);
-                    $answers = Yii::$app->request->getBodyParam($votingAnswer->formName());
-                    foreach ($answers as $answer) {
-                        $votingAnswer = new VotingAnswer();
-                        $votingAnswer->load($answer, '');
-                        $votingAnswer->voting_id = $voting->id;
-                        $votingAnswer->save();
+                if ($statusChanged) {
+                    $this->sendMails($topic);
+                }
+
+                if ($topic->has_voting && $voting->load(Yii::$app->request->post())) {
+                    if ($voting->save()) {
+                        $voting->unlinkAll('answers', true);
+                        $answers = Yii::$app->request->getBodyParam($votingAnswer->formName());
+                        foreach ($answers as $answer) {
+                            $votingAnswer = new VotingAnswer();
+                            $votingAnswer->load($answer, '');
+                            $votingAnswer->voting_id = $voting->id;
+                            $votingAnswer->save();
+                        }
                     }
                 }
-            }
 
-            return $this->redirect(['view', 'id' => $topic->id, 'boardId' => $boardId]);
+                return $this->redirect(['view', 'id' => $topic->id, 'boardId' => $boardId]);
+            }
         }
 
         $categories = Category::find()
@@ -329,6 +316,39 @@ class TopicController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('yii', 'Page not found.'));
+        }
+    }
+
+    /**
+     * Send notification mail (new topic)
+     *
+     * @param Topic $topic The topic
+     * @return void
+     * @throws \Exception
+     */
+    protected function sendMails(Topic $topic): void
+    {
+        if ($topic->status && Yii::$app->mailer) {
+            $from = ArrayHelper::getValue(Yii::$app->params, 'senderEmail', 'no-reply@' . Yii::$app->request->hostName);
+            $post = $topic->getPosts()->orderBy([
+                'created_at' => SORT_ASC
+            ])->one();
+            $sent = [];
+            foreach ($topic->boards as $board) {
+                foreach ($board->users as $user) {
+                    if ($user->email && !isset($sent[$user->email])) {
+                        Yii::$app->mailer->compose([
+                            'html' => '@simialbi/yii2/bulletin/mail/new-topic-html',
+                            'text' => '@simialbi/yii2/bulletin/mail/new-topic-text'
+                        ], ['topic' => $topic, 'post' => $post, 'boardId' => $board->id])
+                            ->setFrom($from)
+                            ->setTo($user->email)
+                            ->setSubject(Yii::t('simialbi/bulletin', 'New topic created'))
+                            ->send();
+                        $sent[$user->email] = true;
+                    }
+                }
+            }
         }
     }
 }

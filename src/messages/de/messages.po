@@ -59,6 +59,10 @@ msgid "Overview"
 msgstr "Übersicht"
 
 msgctxt "simialbi/bulletin"
+msgid "Quote reply"
+msgstr "Zitieren"
+
+msgctxt "simialbi/bulletin"
 msgid "Remove file"
 msgstr "Datei löschen"
 
@@ -205,6 +209,10 @@ msgstr "Geändert am"
 msgctxt "simialbi/bulletin/model/category"
 msgid "Updated by"
 msgstr "Geändert von"
+
+msgctxt "simialbi/bulletin/model/post"
+msgid "Cited post"
+msgstr ""
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Created at"
