@@ -169,7 +169,7 @@ class TopicController extends Controller
         $votingAnswer = new VotingAnswer();
 
         if ($topic->load(Yii::$app->request->post()) && $post->load(Yii::$app->request->post())) {
-            $statusChanged = $topic->isAttributeChanged('status');
+            $statusChanged = $topic->isAttributeChanged('status', false);
             if ($topic->save() && $post->save()) {
                 $categories = Yii::$app->request->getBodyParam('categories', []);
                 $boards = Yii::$app->request->getBodyParam('boards', []);
