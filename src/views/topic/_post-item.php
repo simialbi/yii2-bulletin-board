@@ -9,6 +9,7 @@
 /** @var $noCite bool */
 
 use rmrevin\yii\fontawesome\FAS;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
@@ -83,10 +84,26 @@ use yii\helpers\Url;
         <?php if (!empty($model->attachments)): ?>
             <div class="post-attachments my-3">
                 <?php foreach ($model->attachments as $attachment): ?>
-                    <a href="<?= $attachment->path; ?>" class="mr-2 me-2 py-1 px-2 rounded-pill border border-dark text-reset"
-                       data-pjax="0" target="_blank">
-                        <?= FAS::i($attachment->icon); ?> <?= $attachment->name; ?>
-                    </a>
+                    <?= Html::a($attachment->name, $attachment->path, [
+                        'class' => [
+                            'mr-2',
+                            'me-2',
+                            'py-1',
+                            'px-2',
+                            'rounded-pill',
+                            'border',
+                            'border-dark',
+                            'text-reset',
+                            'text-nowrap',
+                            'd-inline-block',
+                            'mw-100',
+                            'overflow-hidden'
+                        ],
+                        'data' => [
+                            'pjax' => '0'
+                        ],
+                        'target' => '_blank'
+                    ]); ?>
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
