@@ -104,11 +104,17 @@ $i = 0;
                 $files = [];
                 if ($post->getAttachments()->count('id') > 0) {
                     foreach ($post->attachments as $attachment) {
-                        $files[] = [
+                        $file = [
                             'name' => $attachment->name,
-                            'size' => $attachment->size,
-                            'url' => $attachment->path
+                            'size' => $attachment->size
                         ];
+                        if ($attachment->icon === 'image') {
+                            $file['url'] = Url::to(
+                                $attachment->path,
+                                Yii::$app->request->isSecureConnection ? 'https' : 'http'
+                            );
+                        }
+                        $files[] = $file;
                     }
                 }
                 ?>
