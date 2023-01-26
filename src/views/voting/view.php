@@ -21,6 +21,7 @@ if (class_exists('\yii\bootstrap4\Nav')) {
 /** @var $board \simialbi\yii2\bulletin\models\Board */
 /** @var $userHasVoted bool */
 /** @var $userAnswer \simialbi\yii2\bulletin\models\VotingUserAnswer */
+/** @var $results bool */
 
 if (!Yii::$app->request->isAjax):
 ?>
@@ -60,7 +61,7 @@ $form = $formClass::begin([
             <h4 class="card-title my-0 ml-2 ms-2"><?= $model->question; ?></h4>
         </div>
         <div class="card-body">
-            <?php if ($userHasVoted): ?>
+            <?php if ($userHasVoted || $results): ?>
                 <?= $this->render('_results', [
                     'model' => $model,
                     'boardId' => $board->id

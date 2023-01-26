@@ -45,7 +45,7 @@ class VotingController extends Controller
      * @return string
      * @throws NotFoundHttpException|InvalidConfigException
      */
-    public function actionView(int $id, int $boardId): string
+    public function actionView(int $id, int $boardId, bool $results = false): string
     {
         $model = $this->findModel($id);
 
@@ -71,7 +71,8 @@ class VotingController extends Controller
             'navigation' => $navigation,
             'board' => $activeBoard,
             'userHasVoted' => $userHasVoted,
-            'userAnswer' => $userAnswer
+            'userAnswer' => $userAnswer,
+            'results' => $results
         ]);
     }
 

@@ -62,10 +62,16 @@ Pjax::begin([
                 </span>
             </a>
             <?php if ($topic->has_voting): ?>
-                <a href="<?= Url::to(['voting/view', 'id' => $topic->voting->id, 'boardId' => $board->id]) ?>"
+                <a href="<?= Url::to(['voting/view', 'id' => $topic->voting->id, 'boardId' => $board->id]); ?>"
                    class="btn btn-primary ml-1 ms-1">
                     <?= FAS::i('ballot-check'); ?>
                 </a>
+                <?php if (Yii::$app->user->can('bulletinUpdateTopic', ['topic' => $topic])): ?>
+                    <a href="<?= Url::to(['voting/view', 'id' => $topic->voting->id, 'boardId' => $board->id, 'results' => true]); ?>"
+                       class="btn btn-primary ml-1 ms-1">
+                        <?= FAS::i('chart-column'); ?>
+                    </a>
+                <?php endif; ?>
             <?php endif; ?>
             <?php if (Yii::$app->user->can('bulletinUpdateTopic', ['topic' => $topic])): ?>
                 <a href="<?= Url::to(['topic/update', 'id' => $topic->id, 'boardId' => $board->id]);?>"
