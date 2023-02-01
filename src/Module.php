@@ -16,7 +16,7 @@ class Module extends \simialbi\yii2\base\Module
     /**
      * @inheritdoc
      */
-    public $controllerNamespace = '\simialbi\yii2\bulletin\controllers';
+    public $controllerNamespace = 'simialbi\yii2\bulletin\controllers';
 
     /**
      * @inheritdoc
