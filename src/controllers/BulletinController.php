@@ -51,12 +51,18 @@ class BulletinController extends Controller
         $activeBoard = null;
         $navigation = self::getBoardNavigation($id, $activeBoard);
 
+        $query = $activeBoard
+            ? (Yii::$app->user->can('bulletinAdministrator')
+                ? $activeBoard->getTopics()
+                : $activeBoard->getTopics()->where([
+                    'or',
+                    ['status' => true],
+                    ['created_by' => Yii::$app->user->id]
+                ]))
+            : new Query();
+
         $topicDataProvider = new ActiveDataProvider([
-            'query' => $activeBoard ? $activeBoard->getTopics()->where([
-                'or',
-                ['status' => true],
-                ['created_by' => Yii::$app->user->id]
-            ]) : new Query(),
+            'query' => $query,
             'pagination' => [
                 'pageSize' => 10
             ],
