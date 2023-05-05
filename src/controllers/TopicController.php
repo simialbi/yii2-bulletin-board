@@ -170,6 +170,7 @@ class TopicController extends Controller
 
         if ($topic->load(Yii::$app->request->post()) && $post->load(Yii::$app->request->post())) {
             $statusChanged = $topic->isAttributeChanged('status', false);
+            $post->title = $topic->title;
             if ($topic->save() && $post->save()) {
                 $categories = Yii::$app->request->getBodyParam('categories', []);
                 $boards = Yii::$app->request->getBodyParam('boards', []);
