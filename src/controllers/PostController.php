@@ -110,7 +110,8 @@ class PostController extends Controller
         return $this->render('create', [
             'topic' => $topic,
             'model' => $post,
-            'boardId' => $boardId
+            'boardId' => $boardId,
+            'module' => $this->module
         ]);
     }
 
@@ -138,7 +139,8 @@ class PostController extends Controller
         return $this->render('update', [
             'topic' => $topic,
             'model' => $post,
-            'boardId' => $boardId
+            'boardId' => $boardId,
+            'module' => $this->module
         ]);
     }
 

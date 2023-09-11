@@ -147,7 +147,8 @@ class TopicController extends Controller
             'post' => $post,
             'categories' => $categories,
             'voting' => $voting,
-            'votingAnswer' => $votingAnswer
+            'votingAnswer' => $votingAnswer,
+            'module' => $this->module
         ]);
     }
 
@@ -227,7 +228,8 @@ class TopicController extends Controller
             'post' => $post,
             'categories' => $categories,
             'voting' => $voting,
-            'votingAnswer' => $votingAnswer
+            'votingAnswer' => $votingAnswer,
+            'module' => $this->module
         ]);
     }
 

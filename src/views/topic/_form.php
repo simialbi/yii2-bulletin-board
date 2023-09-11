@@ -1,7 +1,6 @@
 <?php
 
 use kartik\select2\Select2;
-use marqu3s\summernote\Summernote;
 use rmrevin\yii\fontawesome\FAS;
 use simialbi\yii2\dropzone\DropZone;
 use yii\helpers\ArrayHelper;
@@ -19,6 +18,7 @@ use yii\web\JsExpression;
 /** @var $categories array */
 /** @var $voting \simialbi\yii2\bulletin\models\Voting */
 /** @var $votingAnswer \simialbi\yii2\bulletin\models\VotingAnswer */
+/** @var $module \simialbi\yii2\bulletin\Module */
 
 $i = 0;
 ?>
@@ -81,24 +81,47 @@ $i = 0;
                     'class' => ['form-group', 'col-3']
                 ]
             ])->checkbox(['disabled' => !$topic->has_voting]); ?>
-            <?= $form->field($post, 'text', [
+            <?php
+            $field = $form->field($post, 'text', [
                 'options' => [
                     'class' => ['form-group', 'col-12']
                 ]
-            ])->widget(Summernote::class, [
-                'clientOptions' => [
-                    'disableDragAndDrop' => true,
-                    'height' => 300,
-                    'toolbar' => new ReplaceArrayValue([
-                        ['actions', ['undo', 'redo']],
-                        ['font', ['bold', 'italic', 'underline', 'strikethrough']],
-                        ['script', ['subscript', 'superscript']],
-                        ['list', ['ol', 'ul']],
-                        ['insert', ['link']],
-                        ['clear', ['clear']]
-                    ])
-                ]
-            ]); ?>
+            ]);
+            switch ($module->rtfEditor) {
+                case $module::EDITOR_NONE:
+                    $field->textarea([
+                        'rows' => 10,
+                    ]);
+                    break;
+                case $module::EDITOR_SUMMERNOTE:
+                    $field->widget(\marqu3s\summernote\Summernote::class, [
+                        'clientOptions' => [
+                            'disableDragAndDrop' => true,
+                            'height' => 300,
+                            'toolbar' => new ReplaceArrayValue([
+                                ['actions', ['undo', 'redo']],
+                                ['font', ['bold', 'italic', 'underline', 'strikethrough']],
+                                ['script', ['subscript', 'superscript']],
+                                ['list', ['ol', 'ul']],
+                                ['insert', ['link']],
+                                ['clear', ['clear']]
+                            ])
+                        ]
+                    ]);
+                    break;
+                case $module::EDITOR_FROALA:
+                    $field->widget(\sandritsch91\yii2\froala\FroalaEditor::class, [
+                        'clientOptions' => [
+                            'height' => 300,
+                            'imagePaste' => false
+                        ]
+                    ]);
+                    break;
+                default:
+                    throw new \yii\base\InvalidConfigException('Invalid rich text editor');
+            }
+            echo $field;
+            ?>
             <div class="form-group col-12 field-attachment">
                 <?php
                 $files = [];

@@ -8,11 +8,14 @@ namespace simialbi\yii2\bulletin;
 
 use simialbi\yii2\models\UserInterface;
 use Yii;
-use yii\base\BootstrapInterface;
 use yii\base\InvalidConfigException;
 
 class Module extends \simialbi\yii2\base\Module
 {
+    const EDITOR_NONE = 0;
+    const EDITOR_SUMMERNOTE = 1;
+    const EDITOR_FROALA = 2;
+
     /**
      * @inheritdoc
      */
@@ -24,11 +27,21 @@ class Module extends \simialbi\yii2\base\Module
     public $defaultRoute = 'bulletin';
 
     /**
+     * Rich Text Editor to use for bulletin content
+     * @var int
+     */
+    public int $rtfEditor;
+
+    /**
      * {@inheritDoc}
      * @throws InvalidConfigException
      */
     public function init(): void
     {
+        if (!isset($this->rtfEditor)) {
+            $this->rtfEditor = static::EDITOR_SUMMERNOTE;
+        }
+
         $identity = new Yii::$app->user->identityClass;
         if (!($identity instanceof UserInterface)) {
             throw new InvalidConfigException('The "identityClass" must extend "simialbi\yii2\models\UserInterface"');
