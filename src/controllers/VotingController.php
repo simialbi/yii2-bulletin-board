@@ -41,9 +41,10 @@ class VotingController extends Controller
      *
      * @param int $id
      * @param int $boardId
-     *
+     * @param bool $results
      * @return string
-     * @throws NotFoundHttpException|InvalidConfigException
+     * @throws InvalidConfigException
+     * @throws NotFoundHttpException
      */
     public function actionView(int $id, int $boardId, bool $results = false): string
     {
@@ -80,10 +81,10 @@ class VotingController extends Controller
      * @param int $id
      * @param int $boardId
      *
-     * @return \yii\web\Response
+     * @return Response
      * @throws InvalidConfigException
      */
-    public function actionVote(int $id, int $boardId): \yii\web\Response
+    public function actionVote(int $id, int $boardId): Response
     {
         $userAnswer = new VotingUserAnswer();
 
@@ -139,7 +140,7 @@ class VotingController extends Controller
      * @return Voting the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($condition): Voting
+    protected function findModel(mixed $condition): Voting
     {
         if (($model = Voting::findOne($condition)) !== null) {
             return $model;

@@ -8,9 +8,12 @@ namespace simialbi\yii2\bulletin\controllers;
 
 use simialbi\yii2\bulletin\models\Category;
 use simialbi\yii2\bulletin\models\SearchCategory;
+use Throwable;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
 class CategoryController extends Controller
 {
@@ -67,9 +70,9 @@ class CategoryController extends Controller
     /**
      * Create a new category
      *
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
-    public function actionCreate()
+    public function actionCreate(): Response|string
     {
         $model = new Category();
 
@@ -87,10 +90,10 @@ class CategoryController extends Controller
      *
      * @param int $id The category's primary key
      *
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate(int $id): Response|string
     {
         $model = $this->findModel($id);
 
@@ -108,10 +111,10 @@ class CategoryController extends Controller
      *
      * @param integer $id  The category's primary key
      *
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException|\yii\db\StaleObjectException
+     * @return Response
+     * @throws NotFoundHttpException|StaleObjectException|Throwable
      */
-    public function actionDelete(int $id): \yii\web\Response
+    public function actionDelete(int $id): Response
     {
         $model = $this->findModel($id);
         $model->delete();
@@ -128,7 +131,7 @@ class CategoryController extends Controller
      * @return Category the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($condition): Category
+    protected function findModel(mixed $condition): Category
     {
         if (($model = Category::findOne($condition)) !== null) {
             return $model;

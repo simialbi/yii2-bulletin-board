@@ -8,8 +8,12 @@ namespace simialbi\yii2\bulletin\controllers;
 
 use simialbi\yii2\bulletin\models\Post;
 use simialbi\yii2\bulletin\models\Topic;
+use Throwable;
 use Yii;
+use yii\base\ErrorException;
 use yii\base\Exception;
+use yii\base\InvalidConfigException;
+use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
@@ -70,7 +74,7 @@ class PostController extends Controller
      *
      * @throws Exception
      */
-    public function actionCreate(int $topicId, int $boardId, ?int $postId = null)
+    public function actionCreate(int $topicId, int $boardId, ?int $postId = null): Response|string
     {
         $topic = Topic::findOne($topicId);
         $post = new Post([
@@ -123,9 +127,9 @@ class PostController extends Controller
      *
      * @return string|Response
      *
-     * @throws Exception|NotFoundHttpException|\yii\base\InvalidConfigException
+     * @throws Exception|NotFoundHttpException|InvalidConfigException
      */
-    public function actionUpdate(int $id, int $boardId)
+    public function actionUpdate(int $id, int $boardId): Response|string
     {
         $post = $this->findModel($id);
         $topic = $post->topic;
@@ -149,7 +153,7 @@ class PostController extends Controller
      * @param int $boardId The active board's id
      *
      * @return Response
-     * @throws NotFoundHttpException|\yii\base\ErrorException|\yii\db\StaleObjectException
+     * @throws NotFoundHttpException|ErrorException|StaleObjectException|Throwable
      */
     public function actionDelete(int $id, int $boardId): Response
     {
@@ -172,7 +176,7 @@ class PostController extends Controller
      * @return Post the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($condition): Post
+    protected function findModel(mixed $condition): Post
     {
         if (($model = Post::findOne($condition)) !== null) {
             return $model;

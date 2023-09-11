@@ -9,14 +9,18 @@ namespace simialbi\yii2\bulletin\controllers;
 use rmrevin\yii\fontawesome\FAS;
 use simialbi\yii2\bulletin\models\Board;
 use simialbi\yii2\bulletin\models\SearchBoard;
+use Throwable;
 use Yii;
 use yii\caching\FileDependency;
 use yii\db\Exception;
+use yii\db\StaleObjectException;
 use yii\helpers\ArrayHelper;
 use yii\helpers\FileHelper;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 
-class BoardController extends \yii\web\Controller
+class BoardController extends Controller
 {
     /**
      * {@inheritDoc}
@@ -75,10 +79,10 @@ class BoardController extends \yii\web\Controller
     /**
      * Create a new board
      *
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws Exception
      */
-    public function actionCreate()
+    public function actionCreate(): Response|string
     {
         $model = new Board();
 
@@ -109,11 +113,11 @@ class BoardController extends \yii\web\Controller
      *
      * @param int $id The board's primary key
      *
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException
      * @throws Exception
      */
-    public function actionUpdate(int $id)
+    public function actionUpdate(int $id): Response|string
     {
         $model = $this->findModel($id);
 
@@ -146,10 +150,10 @@ class BoardController extends \yii\web\Controller
      *
      * @param integer $id The boards's primary key
      *
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException|\yii\db\StaleObjectException
+     * @return Response
+     * @throws NotFoundHttpException|StaleObjectException|Throwable
      */
-    public function actionDelete(int $id): \yii\web\Response
+    public function actionDelete(int $id): Response
     {
         $model = $this->findModel($id);
         $model->delete();
@@ -202,7 +206,7 @@ class BoardController extends \yii\web\Controller
      * @return Board the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($condition): Board
+    protected function findModel(mixed $condition): Board
     {
         if (($model = Board::findOne($condition)) !== null) {
             return $model;
