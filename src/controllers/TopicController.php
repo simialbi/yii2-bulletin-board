@@ -6,12 +6,14 @@
 
 namespace simialbi\yii2\bulletin\controllers;
 
+use Exception;
 use simialbi\yii2\bulletin\models\Board;
 use simialbi\yii2\bulletin\models\Category;
 use simialbi\yii2\bulletin\models\Post;
 use simialbi\yii2\bulletin\models\Topic;
 use simialbi\yii2\bulletin\models\Voting;
 use simialbi\yii2\bulletin\models\VotingAnswer;
+use Throwable;
 use Yii;
 use yii\base\ErrorException;
 use yii\base\InvalidConfigException;
@@ -80,9 +82,9 @@ class TopicController extends Controller
      * @param int $boardId The board where to create the topic
      *
      * @return string|Response
-     * @throws \Exception
+     * @throws Exception
      */
-    public function actionCreate(int $boardId)
+    public function actionCreate(int $boardId): Response|string
     {
         $topic = new Topic([
             'status' => true
@@ -147,7 +149,8 @@ class TopicController extends Controller
             'post' => $post,
             'categories' => $categories,
             'voting' => $voting,
-            'votingAnswer' => $votingAnswer
+            'votingAnswer' => $votingAnswer,
+            'rtfEditor' => $this->module->rtfEditor
         ]);
     }
 
@@ -158,9 +161,9 @@ class TopicController extends Controller
      * @param int $boardId The active board id
      *
      * @return string|Response
-     * @throws \Exception|InvalidConfigException|NotFoundHttpException
+     * @throws Exception|InvalidConfigException|NotFoundHttpException
      */
-    public function actionUpdate(int $id, int $boardId)
+    public function actionUpdate(int $id, int $boardId): Response|string
     {
         $topic = $this->findModel($id);
         /** @var Post $post */
@@ -228,7 +231,8 @@ class TopicController extends Controller
             'post' => $post,
             'categories' => $categories,
             'voting' => $voting,
-            'votingAnswer' => $votingAnswer
+            'votingAnswer' => $votingAnswer,
+            'rtfEditor' => $this->module->rtfEditor
         ]);
     }
 
@@ -286,7 +290,7 @@ class TopicController extends Controller
      * @param int $boardId The active board id
      *
      * @return Response
-     * @throws NotFoundHttpException|StaleObjectException|ErrorException
+     * @throws NotFoundHttpException|StaleObjectException|ErrorException|Throwable
      */
     public function actionDelete(int $id, int $boardId): Response
     {
@@ -311,7 +315,7 @@ class TopicController extends Controller
      * @return Topic the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($condition): Topic
+    protected function findModel(mixed $condition): Topic
     {
         if (($model = Topic::findOne($condition)) !== null) {
             return $model;
@@ -325,7 +329,7 @@ class TopicController extends Controller
      *
      * @param Topic $topic The topic
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function sendMails(Topic $topic): void
     {

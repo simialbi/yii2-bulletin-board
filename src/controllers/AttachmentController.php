@@ -9,7 +9,9 @@ namespace simialbi\yii2\bulletin\controllers;
 use simialbi\yii2\bulletin\models\Attachment;
 use simialbi\yii2\bulletin\models\Post;
 use simialbi\yii2\dropzone\AfterUploadEvent;
+use Throwable;
 use Yii;
+use yii\db\StaleObjectException;
 use yii\helpers\FileHelper;
 use yii\web\Controller;
 
@@ -73,9 +75,9 @@ class AttachmentController extends Controller
      * @param int|null $postId The posts id
      *
      * @return void
-     * @throws \yii\db\StaleObjectException
+     * @throws StaleObjectException|Throwable
      */
-    public function actionDelete(?int $postId = null)
+    public function actionDelete(?int $postId = null): void
     {
         $fileName = Yii::$app->request->getBodyParam('file');
         $path = FileHelper::normalizePath(Yii::getAlias("@webroot/web/uploads/bulletin-board/$postId/$fileName"));

@@ -68,5 +68,4 @@ class SearchBoard extends Board
 
         return $dataProvider;
     }
-
 }

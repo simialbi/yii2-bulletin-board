@@ -147,7 +147,7 @@ class Post extends ActiveRecord
      * @throws \yii\base\Exception
      * @throws \yii\base\InvalidConfigException
      */
-    public function saveAttachments()
+    public function saveAttachments(): void
     {
         $attachments = Yii::$app->request->getBodyParam('attachments', []);
 
