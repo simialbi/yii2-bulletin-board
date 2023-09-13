@@ -28,9 +28,9 @@ class Module extends \simialbi\yii2\base\Module
 
     /**
      * Rich Text Editor to use for bulletin content
-     * @var int
+     * @var integer
      */
-    public int $rtfEditor;
+    public int $rtfEditor = self::EDITOR_SUMMERNOTE;
 
     /**
      * {@inheritDoc}
@@ -38,10 +38,6 @@ class Module extends \simialbi\yii2\base\Module
      */
     public function init(): void
     {
-        if (!isset($this->rtfEditor)) {
-            $this->rtfEditor = static::EDITOR_SUMMERNOTE;
-        }
-
         $identity = new Yii::$app->user->identityClass;
         if (!($identity instanceof UserInterface)) {
             throw new InvalidConfigException('The "identityClass" must extend "simialbi\yii2\models\UserInterface"');

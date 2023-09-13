@@ -14,7 +14,7 @@ if (class_exists('\yii\bootstrap4\ActiveForm')) {
 /** @var $topic \simialbi\yii2\bulletin\models\Topic */
 /** @var $model \simialbi\yii2\bulletin\models\Post */
 /** @var $boardId int */
-/** @var $module \simialbi\yii2\bulletin\Module */
+/** @var $rtfEditor integer */
 
 $this->title = Yii::t('simialbi/bulletin', 'Create new post');
 $this->params['breadcrumbs'] = [
@@ -41,7 +41,7 @@ $this->params['breadcrumbs'] = [
                 'form' => $form,
                 'model' => $model,
                 'boardId' => $boardId,
-                'module' => $module
+                'rtfEditor' => $rtfEditor
             ]); ?>
         </div>
         <div class="card-footer d-flex justify-content-end">

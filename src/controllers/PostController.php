@@ -115,7 +115,7 @@ class PostController extends Controller
             'topic' => $topic,
             'model' => $post,
             'boardId' => $boardId,
-            'module' => $this->module
+            'rtfEditor' => $this->module->rtfEditor
         ]);
     }
 
@@ -144,7 +144,7 @@ class PostController extends Controller
             'topic' => $topic,
             'model' => $post,
             'boardId' => $boardId,
-            'module' => $this->module
+            'rtfEditor' => $this->module->rtfEditor
         ]);
     }
 

@@ -18,7 +18,7 @@ if (class_exists('\yii\bootstrap4\ActiveForm')) {
 /** @var $categories array */
 /** @var $voting \simialbi\yii2\bulletin\models\Voting */
 /** @var $votingAnswer \simialbi\yii2\bulletin\models\VotingAnswer */
-/** @var $module \simialbi\yii2\bulletin\Module */
+/** @var $rtfEditor integer */
 
 $this->title = Yii::t('simialbi/bulletin', 'Create topic');
 $this->params['breadcrumbs'] = [
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'] = [
                 'categories' => $categories,
                 'voting' => $voting,
                 'votingAnswer' => $votingAnswer,
-                'module' => $module
+                'rtfEditor' => $rtfEditor
             ]); ?>
         </div>
         <div class="card-footer d-flex justify-content-end">

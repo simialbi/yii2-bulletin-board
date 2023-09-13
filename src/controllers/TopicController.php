@@ -150,7 +150,7 @@ class TopicController extends Controller
             'categories' => $categories,
             'voting' => $voting,
             'votingAnswer' => $votingAnswer,
-            'module' => $this->module
+            'rtfEditor' => $this->module->rtfEditor
         ]);
     }
 
@@ -231,7 +231,7 @@ class TopicController extends Controller
             'categories' => $categories,
             'voting' => $voting,
             'votingAnswer' => $votingAnswer,
-            'module' => $this->module
+            'rtfEditor' => $this->module->rtfEditor
         ]);
     }
 

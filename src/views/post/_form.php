@@ -1,5 +1,6 @@
 <?php
 
+use simialbi\yii2\bulletin\Module;
 use simialbi\yii2\dropzone\DropZone;
 use yii\helpers\ReplaceArrayValue;
 use yii\helpers\Url;
@@ -9,7 +10,7 @@ use yii\web\JsExpression;
 /** @var $form \yii\widgets\ActiveForm|\yii\bootstrap4\ActiveForm|\yii\bootstrap5\ActiveForm */
 /** @var $model \simialbi\yii2\bulletin\models\Post */
 /** @var $boardId int */
-/** @var $module \simialbi\yii2\bulletin\Module */
+/** @var $rtfEditor integer */
 
 ?>
 
@@ -25,13 +26,13 @@ use yii\web\JsExpression;
             'class' => ['form-group', 'col-12']
         ]
     ]);
-    switch ($module->rtfEditor) {
-        case $module::EDITOR_NONE:
+    switch ($rtfEditor) {
+        case Module::EDITOR_NONE:
             $field->textarea([
                 'rows' => 10,
             ]);
             break;
-        case $module::EDITOR_SUMMERNOTE:
+        case Module::EDITOR_SUMMERNOTE:
             $field->widget(\marqu3s\summernote\Summernote::class, [
                 'clientOptions' => [
                     'disableDragAndDrop' => true,
@@ -47,7 +48,7 @@ use yii\web\JsExpression;
                 ]
             ]);
             break;
-        case $module::EDITOR_FROALA:
+        case Module::EDITOR_FROALA:
             $field->widget(\sandritsch91\yii2\froala\FroalaEditor::class, [
                 'clientOptions' => [
                     'height' => 300,
