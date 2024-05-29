@@ -27,10 +27,14 @@ class Module extends \simialbi\yii2\base\Module
     public $defaultRoute = 'bulletin';
 
     /**
-     * Rich Text Editor to use for bulletin content
-     * @var integer
+     * @var int Rich Text Editor to use for bulletin content
      */
     public int $rtfEditor = self::EDITOR_SUMMERNOTE;
+    
+    /**
+     * @var bool Set `true` to send an email to creator if someone votes in a voting. Defaults to `false`.
+     */
+    public bool $sendMailOnVote = false;
 
     /**
      * {@inheritDoc}

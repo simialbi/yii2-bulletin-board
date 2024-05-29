@@ -1,10 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2024-05-29 08:40+0100\n"
+"Last-Translator: Simon Karlen <karlen@tonic.ag>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -83,6 +81,10 @@ msgid "Select users"
 msgstr ""
 
 msgctxt "simialbi/bulletin"
+msgid "To the results"
+msgstr ""
+
+msgctxt "simialbi/bulletin"
 msgid "To the topic"
 msgstr ""
 
@@ -100,6 +102,10 @@ msgstr ""
 
 msgctxt "simialbi/bulletin"
 msgid "Update topic {topic}"
+msgstr ""
+
+msgctxt "simialbi/bulletin"
+msgid "User {user} voted in topic {topic}"
 msgstr ""
 
 msgctxt "simialbi/bulletin/model/attachment"

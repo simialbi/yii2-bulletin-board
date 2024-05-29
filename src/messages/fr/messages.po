@@ -1,10 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: \n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"Project-Id-Version: 1.0\n"
+"PO-Revision-Date: 2024-05-29 08:40+0100\n"
+"Last-Translator: Simon Karlen <karlen@tonic.ag>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,349 +10,357 @@ msgstr ""
 
 msgctxt "simialbi/bulletin"
 msgid "Answers"
-msgstr ""
+msgstr "Réponses"
 
 msgctxt "simialbi/bulletin"
 msgid "Authorized users"
-msgstr ""
+msgstr "Utilisateurs autorisés"
 
 msgctxt "simialbi/bulletin"
 msgid "Boards"
-msgstr ""
+msgstr "Forums"
 
 msgctxt "simialbi/bulletin"
 msgid "Categories"
-msgstr ""
+msgstr "Catégories"
 
 msgctxt "simialbi/bulletin"
 msgid "Create board"
-msgstr ""
+msgstr "Créer un tableau"
 
 msgctxt "simialbi/bulletin"
 msgid "Create category"
-msgstr ""
+msgstr "Créer une catégorie"
 
 msgctxt "simialbi/bulletin"
 msgid "Create new post"
-msgstr ""
+msgstr "Créer un nouveau message"
 
 msgctxt "simialbi/bulletin"
 msgid "Create topic"
-msgstr ""
+msgstr "Créer un nouveau sujet"
 
 msgctxt "simialbi/bulletin"
 msgid "Drop files here to upload"
-msgstr ""
+msgstr "Déposez les fichiers ici pour les télécharger"
 
 msgctxt "simialbi/bulletin"
 msgid "New post created"
-msgstr ""
+msgstr "Nouveau message créé"
 
 msgctxt "simialbi/bulletin"
 msgid "New topic created"
-msgstr ""
+msgstr "Nouveau sujet créé"
 
 msgctxt "simialbi/bulletin"
 msgid "Overview"
-msgstr ""
+msgstr "Aperçu"
 
 msgctxt "simialbi/bulletin"
 msgid "Quote reply"
-msgstr ""
+msgstr "Citer"
 
 msgctxt "simialbi/bulletin"
 msgid "Remove file"
-msgstr ""
+msgstr "Supprimer le fichier"
 
 msgctxt "simialbi/bulletin"
 msgid "Save"
-msgstr ""
+msgstr "Enregistrer"
 
 msgctxt "simialbi/bulletin"
 msgid "Select boards"
-msgstr ""
+msgstr "Sélectionner les formus"
 
 msgctxt "simialbi/bulletin"
 msgid "Select categories"
-msgstr ""
+msgstr "Sélectionner les catégories"
 
 msgctxt "simialbi/bulletin"
 msgid "Select users"
-msgstr ""
+msgstr "Sélectionner les utilisateurs"
+
+msgctxt "simialbi/bulletin"
+msgid "To the results"
+msgstr "Voir les résultats"
 
 msgctxt "simialbi/bulletin"
 msgid "To the topic"
-msgstr ""
+msgstr "Voir le sujet"
 
 msgctxt "simialbi/bulletin"
 msgid "Update board {board}"
-msgstr ""
+msgstr "Mise à jour du forum {board}"
 
 msgctxt "simialbi/bulletin"
 msgid "Update category {category}"
-msgstr ""
+msgstr "Mise à jour de la catégorie {category}"
 
 msgctxt "simialbi/bulletin"
 msgid "Update post {post}"
-msgstr ""
+msgstr "Mise à jour de la message {post}"
 
 msgctxt "simialbi/bulletin"
 msgid "Update topic {topic}"
-msgstr ""
+msgstr "Mise à jour du sujet {topic}"
+
+msgctxt "simialbi/bulletin"
+msgid "User {user} voted in topic {topic}"
+msgstr "L'utilisateur {user} a voté dans le sujet {topic}"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Mime type"
-msgstr ""
+msgstr "Type de Mime"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Path"
-msgstr ""
+msgstr "Chemin de fichier"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Post"
-msgstr ""
+msgstr "Message"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Size"
-msgstr ""
+msgstr "Taille du fichier"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/attachment"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Icon"
-msgstr ""
+msgstr "Icône"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Is active"
-msgstr ""
+msgstr "Est actif"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Is public"
-msgstr ""
+msgstr "Est public"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/board"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/category"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Cited post"
-msgstr ""
+msgstr "Message cité"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Text"
-msgstr ""
+msgstr "Texte"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Topic"
-msgstr ""
+msgstr "Sujet"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/post"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Has voting"
-msgstr ""
+msgstr "A voté"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/topic"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Multiple answers"
-msgstr ""
+msgstr "Plusieurs réponses"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Question"
-msgstr ""
+msgstr "Question"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Topic"
-msgstr ""
+msgstr "Sujet"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/voting"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Answer"
-msgstr ""
+msgstr "Réponse"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Created by"
-msgstr ""
+msgstr "Créé par"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Updated at"
-msgstr ""
+msgstr "Mise à jour à"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Updated by"
-msgstr ""
+msgstr "Mise à jour par"
 
 msgctxt "simialbi/bulletin/model/voting-answer"
 msgid "Voting"
-msgstr ""
+msgstr "Vote"
 
 msgctxt "simialbi/bulletin/model/voting-user-answer"
 msgid "Answer"
-msgstr ""
+msgstr "Réponse"
 
 msgctxt "simialbi/bulletin/model/voting-user-answer"
 msgid "Created at"
-msgstr ""
+msgstr "Crée à"
 
 msgctxt "simialbi/bulletin/model/voting-user-answer"
 msgid "Id"
-msgstr ""
+msgstr "Id"
 
 msgctxt "simialbi/bulletin/model/voting-user-answer"
 msgid "User"
-msgstr ""
+msgstr "Utilisateur"
 

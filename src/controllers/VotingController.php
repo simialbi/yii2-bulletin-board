@@ -11,10 +11,14 @@ use simialbi\yii2\bulletin\models\Voting;
 use simialbi\yii2\bulletin\models\VotingUserAnswer;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+/**
+ * @property-read \simialbi\yii2\bulletin\Module $module
+ */
 class VotingController extends Controller
 {
     /**
@@ -82,7 +86,7 @@ class VotingController extends Controller
      * @param int $boardId
      *
      * @return Response
-     * @throws InvalidConfigException
+     * @throws InvalidConfigException|NotFoundHttpException|\Exception
      */
     public function actionVote(int $id, int $boardId): Response
     {
@@ -90,11 +94,31 @@ class VotingController extends Controller
 
         $answers = Yii::$app->request->getBodyParam($userAnswer->formName());
         $answers['answer_id'] = (array)$answers['answer_id'];
+        $userAnswers = [];
         foreach ($answers['answer_id'] as $answer) {
             $userAnswer = new VotingUserAnswer();
             $userAnswer->answer_id = $answer;
             $userAnswer->user_id = (string)Yii::$app->user->id;
             $userAnswer->save();
+            $userAnswers[] = $userAnswer;
+        }
+        
+        if ($this->module->sendMailOnVote && count($userAnswers) && Yii::$app->mailer) {
+            $voting = $this->findModel($id);
+            $from = ArrayHelper::getValue(Yii::$app->params, 'senderEmail', 'no-reply@' . Yii::$app->request->hostName);
+
+            Yii::$app->mailer
+                ->compose([
+                    'html' => '@simialbi/yii2/bulletin/mail/new-voting-html',
+                    'text' => '@simialbi/yii2/bulletin/mail/new-voting-text'
+                ], ['voting' => $voting, 'userAnswers' => $userAnswers, 'boardId' => $boardId])
+                ->setFrom($from)
+                ->setTo([$voting->author->email => $voting->author->name])
+                ->setSubject(Yii::t('simialbi/bulletin', 'User {user} voted in topic {topic}', [
+                    'user' => $userAnswers[0]->user->name,
+                    'topic' => $voting->topic->title
+                ]))
+                ->send();
         }
 
         return $this->redirect(['voting/view', 'id' => $id, 'boardId' => $boardId]);
