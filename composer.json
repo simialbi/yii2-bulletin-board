@@ -29,9 +29,7 @@
         "sandritsch91/yii2-widget-flatpickr": "^1.0.0",
         "simialbi/yii2-simialbi-base": ">=0.13.0 <1.0 | ^1.0.0",
         "simialbi/yii2-widget-chart": "^0.8.0",
-        "simialbi/yii2-widget-dropzone": "^2.0.0",
-        "bower-asset/autosize": "^4.0.2",
-        "bower-asset/resumablejs": "^1.1.0"
+        "simialbi/yii2-widget-dropzone": "^2.0.0"
     },
     "require-dev": {
         "fortawesome/font-awesome": "^5.10.0",
