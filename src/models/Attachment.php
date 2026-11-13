@@ -115,12 +115,12 @@ class Attachment extends ActiveRecord
                 return 'file-word';
             case 'application/msexcel':
             case 'application/vnd.ms-excel':
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.template';
-            case 'application/vnd.ms-excel.sheet.macroEnabled.12';
-            case 'application/vnd.ms-excel.template.macroEnabled.12';
-            case 'application/vnd.ms-excel.addin.macroEnabled.12';
-            case 'application/vnd.ms-excel.sheet.binary.macroEnabled.12';
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.template':
+            case 'application/vnd.ms-excel.sheet.macroEnabled.12':
+            case 'application/vnd.ms-excel.template.macroEnabled.12':
+            case 'application/vnd.ms-excel.addin.macroEnabled.12':
+            case 'application/vnd.ms-excel.sheet.binary.macroEnabled.12':
                 return 'file-excel';
             case 'application/mspowerpoint':
             case 'application/vnd.ms-powerpoint':
